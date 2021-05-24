@@ -9,6 +9,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
+from gui.custom_uix.AddRowPopup import AddRowPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
@@ -16,8 +17,7 @@ from db.models.City import City
 
 
 def add_city(instance):
-    popup = Popup(title='Test popup', content=Label(text='Hello world'),
-                  auto_dismiss=False)
+    popup = AddRowPopup(title='Test popup', dict_class=City)
     popup.open()
 
 
