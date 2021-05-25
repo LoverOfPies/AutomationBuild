@@ -12,3 +12,10 @@ def change_attribute(data):
         raise Exception()
     else:
         return True
+
+
+def delete_row(data):
+    model_class = data.get('model_class')
+    id_value = data.get('id_value')
+    obj = model_class.get((model_class.id == id_value))
+    obj.delete_instance()

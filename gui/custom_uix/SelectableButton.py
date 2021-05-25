@@ -14,6 +14,3 @@ class SelectableButton(Button):
         popup = self.class_popup(self, title=self.popup_title,
                                  dict_class=self.dict_class, id_value=self.id_value, field=self.field)
         popup.open()
-
-    def update_changes(self, txt):
-        self.text = txt

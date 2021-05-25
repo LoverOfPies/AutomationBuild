@@ -4,20 +4,20 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from gui.custom_uix.AddRowPopup import AddRowPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
+from gui.custom_uix.DeleteButton import DeleteButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from db.models.City import City
 
 
 def add_city(instance):
-    popup = AddRowPopup(title='Test popup', dict_class=City)
+    popup = AddRowPopup(title='Добавление записи "Город"', dict_class=City)
     popup.open()
 
 
@@ -71,7 +71,8 @@ class CityUI:
                                                     id_value=str(city.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(Button(text='Удалить', height=dp(30)))
+            data_layout.add_widget(DeleteButton(text='Удалить', height=dp(30),
+                                                model_class=City, id_value=str(city.id), ui=self))
         data_scroll.add_widget(data_layout)
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
