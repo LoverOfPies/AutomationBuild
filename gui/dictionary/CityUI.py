@@ -25,7 +25,7 @@ class CityUI:
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
-        self.screen.add_widget(self.main_layout())
+        self.update_screen()
         self.sm.add_widget(self.screen)
 
     # Обновление экрана
