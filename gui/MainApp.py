@@ -10,41 +10,42 @@ from gui.dictionary.CityUI import CityUI
 
 
 def main_screen(sm):
+    # Начальный экран
     screen_name = 'main_screen'
     al = AnchorLayout()
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
     al.add_widget(bl)
-    bl.add_widget(OpenScreenButton(text='Справочники', screenname='dictionary_screen', screenmanager=sm))
+    bl.add_widget(OpenScreenButton(text='Справочники', screen_name='dictionary_screen', screen_manager=sm))
     screen = Screen(name=screen_name)
     screen.add_widget(al)
     sm.add_widget(screen)
 
 
 def dictionary_screen(sm):
+    # Экран выбора справочников
     screen_name = 'dictionary_screen'
     parent_screen = 'main_screen'
 
     al = AnchorLayout()
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
     al.add_widget(bl)
-    bl.add_widget(OpenScreenButton(text='Назад', screenname=parent_screen, screenmanager=sm))
-    bl.add_widget(OpenScreenButton(text='Города', screenname=CityUI.screen_name, screenmanager=sm))
-    bl.add_widget(OpenScreenButton(text='Поставщики', screenname=ProviderUI.screen_name, screenmanager=sm))
+    bl.add_widget(OpenScreenButton(text='Назад', screen_name=parent_screen, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
     sm.add_widget(screen)
+
+    # Создание экранов для справочников
     CityUI(screen_manager=sm)
     ProviderUI(screen_manager=sm)
 
 
 class MainApp(App):
     def build(self):
+        self.title = 'AutomationBuild'
         sm = ScreenManager()
-
-        sc2 = Screen(name='dictionary_screen')
-        sc2.add_widget(Label(text='another screen'))
-
         main_screen(sm)
         dictionary_screen(sm)
         return sm

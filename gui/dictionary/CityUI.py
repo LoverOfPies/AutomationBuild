@@ -9,7 +9,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from gui.custom_uix.AddRowButton import AddRowButton
-from gui.custom_uix.AddRowCityPopup import AddRowCityPopup
+from gui.custom_uix.add_dictionary.AddRowCityPopup import AddRowCityPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
@@ -25,27 +25,29 @@ class CityUI:
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
-        self.screen.add_widget(self.city_screen())
+        self.screen.add_widget(self.main_layout())
         self.sm.add_widget(self.screen)
 
+    # Обновление экрана
     def update_screen(self):
         self.screen.clear_widgets()
-        self.screen.add_widget(self.city_screen())
+        self.screen.add_widget(self.main_layout())
 
-    def city_screen(self):
-        al = AnchorLayout()
+    # Получение main_layout для интерфейса
+    def main_layout(self):
+        main_anchor = AnchorLayout()
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
-        al.add_widget(bl)
+        main_anchor.add_widget(bl)
 
         # Фильтр
-        search_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 15])
-        search_layout.add_widget(Label(text='Фильтр'))
-        id_input = TextInput(hint_text='id', multiline=False)
-        name_input = TextInput(hint_text='Наименование', multiline=False)
-        search_button = Button(text='Поиск')
-        search_layout.add_widget(id_input)
-        search_layout.add_widget(name_input)
-        search_layout.add_widget(search_button)
+        # search_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 15])
+        # search_layout.add_widget(Label(text='Фильтр'))
+        # id_input = TextInput(hint_text='id', multiline=False)
+        # name_input = TextInput(hint_text='Наименование', multiline=False)
+        # search_button = Button(text='Поиск')
+        # search_layout.add_widget(id_input)
+        # search_layout.add_widget(name_input)
+        # search_layout.add_widget(search_button)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
@@ -78,12 +80,13 @@ class CityUI:
                                                    id_value=str(city.id), ui=self))
         data_scroll.add_widget(data_layout)
 
+        # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screenname=self.parent_screen, screenmanager=self.sm))
+        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
-        bl.add_widget(search_layout)
+        # bl.add_widget(search_layout)
         bl.add_widget(button_layout)
 
-        return al
+        return main_anchor

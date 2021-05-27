@@ -2,6 +2,7 @@ from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.button import Button
 
 
+# Кнопка вызова модального окна изменения атрибута
 class SelectableButton(Button):
     class_popup = ObjectProperty()
     popup_title = StringProperty()

@@ -4,6 +4,7 @@ from kivy.uix.button import Button
 from db.DbUtils import delete_row
 
 
+# Кнопка удаления записи
 class DeleteRowButton(Button):
     ui = ObjectProperty()
     id_value = StringProperty()

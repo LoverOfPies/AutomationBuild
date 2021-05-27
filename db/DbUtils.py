@@ -1,3 +1,4 @@
+# Изменить запись в бд
 def change_attribute(data):
     model_class = data.get('model_class')
     id_value = data.get('id_value')
@@ -14,6 +15,7 @@ def change_attribute(data):
         return True
 
 
+# Удалить запись в бд
 def delete_row(data):
     model_class = data.get('model_class')
     id_value = data.get('id_value')
@@ -21,6 +23,7 @@ def delete_row(data):
     obj.delete_instance()
 
 
+# Добавить запись в бд
 def add_row(data):
     model_class = data.get('model_class')
     value = data.get('value')

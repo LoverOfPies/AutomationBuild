@@ -2,6 +2,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
 
 
+# Кнопка вызова модального окна добавления записи
 class AddRowButton(Button):
     ui = ObjectProperty()
     popup = ObjectProperty()

@@ -4,6 +4,7 @@ from db.models.BaseModel import BaseModel
 from db.models.City import City
 
 
+# Поставщик
 class Provider(BaseModel):
     name = CharField(unique=True)
     city = ForeignKeyField(City, backref='cities')

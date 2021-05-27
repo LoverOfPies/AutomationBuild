@@ -7,12 +7,14 @@ from kivy.uix.textinput import TextInput
 from db.DbUtils import change_attribute
 
 
+# Модальное окно для изменения текстового атрибута
 class ChangeTextAttributePopup(Popup):
     button_obj = ObjectProperty()
     dict_class = ObjectProperty()
     id_value = StringProperty()
     field = StringProperty()
 
+    # Сохранить изменение атрибута в бд
     def save_value(self):
         self.button_obj.text = self.attribute_input.text
         self.dismiss()

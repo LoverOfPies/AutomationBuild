@@ -25,6 +25,6 @@ class ProviderUI:
         al = AnchorLayout()
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
         al.add_widget(bl)
-        bl.add_widget(OpenScreenButton(text='Назад', screenname=self.parent_screen, screenmanager=self.sm))
+        bl.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
         return al
