@@ -8,26 +8,28 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
-from gui.custom_uix.AddRowPopup import AddRowPopup
+from gui.custom_uix.AddRowButton import AddRowButton
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
-from gui.custom_uix.DeleteButton import DeleteButton
+from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from db.models.City import City
 
 
-def add_city(instance):
-    popup = AddRowPopup(title='Добавление записи "Город"', dict_class=City)
-    popup.open()
-
-
 class CityUI:
     screen_name = 'city_screen'
     parent_screen = 'dictionary_screen'
-    dict_class = City
+    model_class = City
+    screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
+        self.screen.add_widget(self.city_screen())
+        self.sm.add_widget(self.screen)
+
+    def update_screen(self):
+        self.screen.clear_widgets()
+        self.screen.add_widget(self.city_screen())
 
     def city_screen(self):
         al = AnchorLayout()
@@ -46,7 +48,7 @@ class CityUI:
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(Button(text='Добавить', on_press=add_city))
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
@@ -61,18 +63,18 @@ class CityUI:
         data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
-        cities = self.dict_class.select()
+        cities = self.model_class.select()
         for city in cities:
             data_layout.add_widget(Label(text=str(city.id), size_hint_y=None, height=dp(30)))
             data_layout.add_widget(SelectableButton(text=str(city.name), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
-                                                    dict_class=City,
+                                                    dict_class=self.model_class,
                                                     id_value=str(city.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(DeleteButton(text='Удалить', height=dp(30),
-                                                model_class=City, id_value=str(city.id), ui=self))
+            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
+                                                   id_value=str(city.id), ui=self))
         data_scroll.add_widget(data_layout)
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
@@ -83,6 +85,4 @@ class CityUI:
         bl.add_widget(search_layout)
         bl.add_widget(button_layout)
 
-        screen = Screen(name=self.screen_name)
-        screen.add_widget(al)
-        self.sm.add_widget(screen)
+        return al

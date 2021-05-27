@@ -19,3 +19,11 @@ def delete_row(data):
     id_value = data.get('id_value')
     obj = model_class.get((model_class.id == id_value))
     obj.delete_instance()
+
+
+def add_row(data):
+    model_class = data.get('model_class')
+    value = data.get('value')
+    city = [
+        {'name': value}]
+    model_class.insert(city).execute()

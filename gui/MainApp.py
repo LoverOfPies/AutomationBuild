@@ -34,7 +34,7 @@ def dictionary_screen(sm):
     screen = Screen(name=screen_name)
     screen.add_widget(al)
     sm.add_widget(screen)
-    CityUI(screen_manager=sm).city_screen()
+    CityUI(screen_manager=sm)
     provider_screen(sm)
 
 
