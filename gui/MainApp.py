@@ -5,8 +5,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
+from gui.dictionary.ProviderUI import ProviderUI
 from gui.dictionary.CityUI import CityUI
-from gui.dictionary.DictionaryUI import provider_screen
 
 
 def main_screen(sm):
@@ -28,14 +28,14 @@ def dictionary_screen(sm):
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
     al.add_widget(bl)
     bl.add_widget(OpenScreenButton(text='Назад', screenname=parent_screen, screenmanager=sm))
-    bl.add_widget(OpenScreenButton(text='Города', screenname='city_screen', screenmanager=sm))
-    bl.add_widget(OpenScreenButton(text='Поставщики', screenname='provider_screen', screenmanager=sm))
+    bl.add_widget(OpenScreenButton(text='Города', screenname=CityUI.screen_name, screenmanager=sm))
+    bl.add_widget(OpenScreenButton(text='Поставщики', screenname=ProviderUI.screen_name, screenmanager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
     sm.add_widget(screen)
     CityUI(screen_manager=sm)
-    provider_screen(sm)
+    ProviderUI(screen_manager=sm)
 
 
 class MainApp(App):

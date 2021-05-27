@@ -1,13 +1,11 @@
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
-
-from db.DbUtils import delete_row
-from gui.custom_uix.AddRowPopup import AddRowPopup
 
 
 class AddRowButton(Button):
     ui = ObjectProperty()
+    popup = ObjectProperty()
 
     def on_press(self, *args):
-        popup = AddRowPopup(title='Добавление записи "Город"', ui_class=self.ui)
+        popup = self.popup(title='Добавление записи "Город"', ui_class=self.ui)
         popup.open()

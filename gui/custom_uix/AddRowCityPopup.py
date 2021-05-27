@@ -11,30 +11,27 @@ from kivy.uix.textinput import TextInput
 from db.DbUtils import add_row
 
 
-class AddRowPopup(Popup):
-    dict_class = ObjectProperty()
+class AddRowCityPopup(Popup):
     ui_class = ObjectProperty()
-    name = TextInput()
 
-    def add_value(self):
+    def add_value(self, obj):
         self.dismiss()
         data = dict([
             ('model_class', self.ui_class.model_class),
-            ('value', self.name.text),
+            ('value', self.name_input.text),
         ])
         add_row(data)
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):
-        super(AddRowPopup, self).__init__(**kwargs)
+        super(AddRowCityPopup, self).__init__(**kwargs)
         self.size = [400, 400]
         self.size_hint = [None, None]
         self.auto_dismiss = False
-
         self.ui_class = ui_class
 
         main_layout = BoxLayout(orientation='vertical')
-
+        self.name_input = TextInput()
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
                 size:(root.width, root.height)
@@ -44,17 +41,15 @@ class AddRowPopup(Popup):
                 height: self.minimum_height
                 row_default_height: 50
                 row_force_default: True''')
-        fields = ui_class.model_class._meta.fields.keys()
-        for key in fields:
-            if key != 'id':
-                data_layout.add_widget(Label(text=str(key), size_hint_y=None, height=dp(30)))
-                data_layout.add_widget(self.name)
+
+        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(self.name_input)
         data_scroll.add_widget(data_layout)
         main_layout.add_widget(data_scroll)
 
         save = Button(size_hint=[1, 0.2], text='Сохранить')
         main_layout.add_widget(save)
-        save.on_press = self.add_value
+        save.fbind('on_press', self.add_value)
         cancel = Button(size_hint=[1, 0.2], text='Отмена')
         main_layout.add_widget(cancel)
         cancel.bind(on_press=self.dismiss)

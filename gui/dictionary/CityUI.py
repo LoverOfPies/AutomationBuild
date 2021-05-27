@@ -9,6 +9,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from gui.custom_uix.AddRowButton import AddRowButton
+from gui.custom_uix.AddRowCityPopup import AddRowCityPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
@@ -48,7 +49,7 @@ class CityUI:
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self))
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowCityPopup))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
