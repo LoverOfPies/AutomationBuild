@@ -27,6 +27,4 @@ def delete_row(data):
 def add_row(data):
     model_class = data.get('model_class')
     value = data.get('value')
-    city = [
-        {'name': value}]
-    model_class.insert(city).execute()
+    model_class.insert(value).execute()

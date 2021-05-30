@@ -12,6 +12,9 @@ from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
+from gui.custom_uix.SelectableModalButton import SelectableModalButton
+from gui.custom_uix.add_dictionary.AddProviderPopup import AddRowProviderPopup
+from gui.custom_uix.modal.CItyModalPopup import CityModalPopup
 
 
 class ProviderUI:
@@ -36,7 +39,8 @@ class ProviderUI:
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=''))
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
+                                              popup_title='Добавление записи "Поставщик"'))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
@@ -62,13 +66,8 @@ class ProviderUI:
                                                     id_value=str(provider.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(SelectableButton(text=str(provider.city.name), size_hint_y=None, height=dp(30),
-                                                    popup_title="Изменить наименование",
-                                                    class_popup=ChangeTextAttributePopup,
-                                                    dict_class=self.model_class,
-                                                    id_value=str(provider.city.id),
-                                                    field='name'
-                                                    ))
+            data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), size_hint_y=None, height=dp(30),
+                                                         modal_popup=CityModalPopup))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(provider.id), ui=self))
         data_scroll.add_widget(data_layout)

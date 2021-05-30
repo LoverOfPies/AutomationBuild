@@ -9,15 +9,20 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from db.DbUtils import add_row
+from db.models.City import City
+from gui.custom_uix.SelectableModalButton import SelectableModalButton
+from gui.custom_uix.modal.CItyModalPopup import CityModalPopup
 
 
-class AddRowCityPopup(Popup):
+class AddRowProviderPopup(Popup):
     ui_class = ObjectProperty()
 
     def add_value(self, obj):
         self.dismiss()
+        city = City.select().where(City.name == self.city_input.text)
         model_obj = [
-            {'name': str(self.name_input.text)}
+            {'name': str(self.name_input.text),
+             'city_id': city}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),
@@ -27,14 +32,17 @@ class AddRowCityPopup(Popup):
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):
-        super(AddRowCityPopup, self).__init__(**kwargs)
+        super(AddRowProviderPopup, self).__init__(**kwargs)
         self.size = [400, 400]
         self.size_hint = [None, None]
         self.auto_dismiss = False
         self.ui_class = ui_class
 
-        main_layout = BoxLayout(orientation='vertical')
         self.name_input = TextInput()
+        self.city_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30),
+                                                modal_popup=CityModalPopup)
+
+        main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
                 size:(root.width, root.height)
@@ -47,6 +55,8 @@ class AddRowCityPopup(Popup):
 
         data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(self.name_input)
+        data_layout.add_widget(Label(text='Город', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(self.city_input)
         data_scroll.add_widget(data_layout)
         main_layout.add_widget(data_scroll)
 
