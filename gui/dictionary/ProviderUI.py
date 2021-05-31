@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
+from db.models.City import City
 from db.models.Provider import Provider
 from gui.custom_uix.AddRowButton import AddRowButton
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -67,7 +68,11 @@ class ProviderUI:
                                                     field='name'
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), size_hint_y=None, height=dp(30),
-                                                         modal_popup=CityModalPopup))
+                                                         modal_popup=CityModalPopup, change_flag=True,
+                                                         dict_class=self.model_class, owner_class=City,
+                                                         id_value=str(provider.id),
+                                                         field='city'
+                                                         ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(provider.id), ui=self))
         data_scroll.add_widget(data_layout)
