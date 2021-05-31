@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.dictionary.BaseUnitUI import BaseUnitUI
+from gui.dictionary.CategoryUI import CategoryUI
 from gui.dictionary.ProviderUI import ProviderUI
 from gui.dictionary.CityUI import CityUI
 
@@ -33,6 +34,7 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Базовые единицы', screen_name=BaseUnitUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
@@ -42,6 +44,7 @@ def dictionary_screen(sm):
     CityUI(screen_manager=sm)
     ProviderUI(screen_manager=sm)
     BaseUnitUI(screen_manager=sm)
+    CategoryUI(screen_manager=sm)
 
 
 class MainApp(App):
