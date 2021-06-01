@@ -62,13 +62,13 @@ class CategoryUI:
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(Label(text='id', height=dp(30)))
+        data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='', height=dp(30)))
         categories = self.model_class.select()
         for category in categories:
-            data_layout.add_widget(Label(text=str(category.id), size_hint_y=None, height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(category.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(Label(text=str(category.id), height=dp(30)))
+            data_layout.add_widget(SelectableButton(text=str(category.name), height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,

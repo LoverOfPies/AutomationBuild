@@ -32,7 +32,7 @@ def dictionary_screen(sm):
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .5])
     al.add_widget(bl)
     bl.add_widget(OpenScreenButton(text='Назад', screen_name=parent_screen, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Базовые единицы', screen_name=BaseUnitUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))

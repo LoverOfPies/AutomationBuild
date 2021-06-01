@@ -62,13 +62,13 @@ class ProjectUI:
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(Label(text='id', height=dp(30)))
+        data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='', height=dp(30)))
         projects = self.model_class.select()
         for project in projects:
-            data_layout.add_widget(Label(text=str(project.id), size_hint_y=None, height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(project.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(Label(text=str(project.id), height=dp(30)))
+            data_layout.add_widget(SelectableButton(text=str(project.name), height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,

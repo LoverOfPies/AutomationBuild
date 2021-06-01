@@ -39,7 +39,7 @@ class AddRowProviderPopup(Popup):
         self.ui_class = ui_class
 
         self.name_input = TextInput()
-        self.city_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30),
+        self.city_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                 modal_popup=CityModalPopup)
 
         main_layout = BoxLayout(orientation='vertical')

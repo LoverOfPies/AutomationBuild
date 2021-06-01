@@ -16,7 +16,7 @@ class SelectableModalButton(Button):
         if not self.change_flag:
             self.owner_class = None
             self.dict_class = None
-            self.id_value = None
-            self.field = None
+            self.id_value = ''
+            self.field = ''
         popup = self.modal_popup(self, self.change_flag, self.dict_class, self.owner_class, self.id_value, self.field)
         popup.open()

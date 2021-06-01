@@ -16,6 +16,7 @@ from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
 from gui.custom_uix.add_dictionary.AddProviderPopup import AddRowProviderPopup
 from gui.custom_uix.modal.CItyModalPopup import CityModalPopup
+from gui.dictionary.CityUI import CityUI
 
 
 class ProviderUI:
@@ -38,28 +39,24 @@ class ProviderUI:
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
 
-        # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
-                                              popup_title='Добавление записи "Поставщик"'))
-
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 4
+        cols: 5
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='Город', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(Label(text='id', height=dp(30)))
+        data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='Город', height=dp(30)))
+        data_layout.add_widget(Label(text='', height=dp(30)))
+        data_layout.add_widget(Label(text='', height=dp(30)))
         providers = self.model_class.select()
         for provider in providers:
-            data_layout.add_widget(Label(text=str(provider.id), size_hint_y=None, height=dp(30)))
+            data_layout.add_widget(Label(text=str(provider.id), height=dp(30)))
             data_layout.add_widget(SelectableButton(text=str(provider.name), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
@@ -67,7 +64,7 @@ class ProviderUI:
                                                     id_value=str(provider.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), height=dp(30),
                                                          modal_popup=CityModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=City,
                                                          id_value=str(provider.id),
@@ -75,13 +72,20 @@ class ProviderUI:
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(provider.id), ui=self))
+            data_layout.add_widget(Label(text='Товары поставщика', height=dp(30)))
         data_scroll.add_widget(data_layout)
 
-        # Кнопка назад
+        # Кнопки управления
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
+                                              popup_title='Добавление записи "Поставщик"'))
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
+        city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
 
         bl.add_widget(back_layout)
+        bl.add_widget(city_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)
 

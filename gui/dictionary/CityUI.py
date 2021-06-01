@@ -17,7 +17,7 @@ from db.models.City import City
 
 class CityUI:
     screen_name = 'city_screen'
-    parent_screen = 'dictionary_screen'
+    parent_screen = 'provider_screen'
     model_class = City
     screen = Screen(name=screen_name)
 
@@ -62,13 +62,13 @@ class CityUI:
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(Label(text='id', height=dp(30)))
+        data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='', height=dp(30)))
         cities = self.model_class.select()
         for city in cities:
-            data_layout.add_widget(Label(text=str(city.id), size_hint_y=None, height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(city.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(Label(text=str(city.id), height=dp(30)))
+            data_layout.add_widget(SelectableButton(text=str(city.name), height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
