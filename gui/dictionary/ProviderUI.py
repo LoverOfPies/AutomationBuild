@@ -2,6 +2,7 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
@@ -11,6 +12,7 @@ from db.models.Provider import Provider
 from gui.custom_uix.AddRowButton import AddRowButton
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
+from gui.custom_uix.FilterDropDown import FilterDropDown
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
@@ -24,6 +26,7 @@ class ProviderUI:
     parent_screen = 'dictionary_screen'
     model_class = Provider
     screen = Screen(name=screen_name)
+    citydrop_button = Button(text='Все')
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -76,15 +79,24 @@ class ProviderUI:
         data_scroll.add_widget(data_layout)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
                                               popup_title='Добавление записи "Поставщик"'))
+
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+
+        dropdown = FilterDropDown(dict_class=City, main_button=self.citydrop_button)
+        self.citydrop_button.bind(on_release=dropdown.open)
+        dropdown_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
+        dropdown_layout.add_widget(Label(text='Город: '))
+        dropdown_layout.add_widget(self.citydrop_button)
+
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
+        city_layout.add_widget(OpenScreenButton(text='Все города', screen_name=CityUI.screen_name, screen_manager=self.sm))
 
         bl.add_widget(back_layout)
+        bl.add_widget(dropdown_layout)
         bl.add_widget(city_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)
