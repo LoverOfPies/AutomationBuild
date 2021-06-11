@@ -8,7 +8,7 @@ from kivy.uix.scrollview import ScrollView
 
 from db.models.BaseUnit import BaseUnit
 from gui.custom_uix.AddRowButton import AddRowButton
-from gui.custom_uix.add_dictionary.AddRowBaseUnitPopup import AddRowBaseUnitPopup
+from gui.add_dictionary.AddRowBaseUnitPopup import AddRowBaseUnitPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton

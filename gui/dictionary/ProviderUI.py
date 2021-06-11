@@ -16,8 +16,8 @@ from gui.custom_uix.FilterDropDown import FilterDropDown
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.custom_uix.add_dictionary.AddProviderPopup import AddRowProviderPopup
-from gui.custom_uix.modal.CItyModalPopup import CityModalPopup
+from gui.add_dictionary.AddProviderPopup import AddRowProviderPopup
+from gui.modal.CItyModalPopup import CityModalPopup
 from gui.dictionary.CityUI import CityUI
 
 

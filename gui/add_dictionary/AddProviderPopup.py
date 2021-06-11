@@ -11,7 +11,7 @@ from kivy.uix.textinput import TextInput
 from db.DbUtils import add_row
 from db.models.City import City
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.custom_uix.modal.CItyModalPopup import CityModalPopup
+from gui.modal.CItyModalPopup import CityModalPopup
 
 
 class AddRowProviderPopup(Popup):

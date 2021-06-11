@@ -6,19 +6,19 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
+from db.models.Unit import Unit
+from gui.add_dictionary.AddRowUnitPopup import AddRowUnitPopup
 from gui.custom_uix.AddRowButton import AddRowButton
-from gui.add_dictionary.AddRowCityPopup import AddRowCityPopup
 from gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
-from db.models.City import City
 
 
-class CityUI:
-    screen_name = 'city_screen'
-    parent_screen = 'provider_screen'
-    model_class = City
+class UnitUI:
+    screen_name = 'unit_screen'
+    parent_screen = 'dictionary_screen'
+    model_class = Unit
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):
@@ -37,20 +37,10 @@ class CityUI:
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
 
-        # Фильтр
-        # search_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 15])
-        # search_layout.add_widget(Label(text='Фильтр'))
-        # id_input = TextInput(hint_text='id', multiline=False)
-        # name_input = TextInput(hint_text='Наименование', multiline=False)
-        # search_button = Button(text='Поиск')
-        # search_layout.add_widget(id_input)
-        # search_layout.add_widget(name_input)
-        # search_layout.add_widget(search_button)
-
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowCityPopup,
-                                              popup_title='Добавление записи "Город"'))
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowUnitPopup,
+                                              popup_title='Добавление записи "Базовой единиц"'))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
@@ -65,18 +55,18 @@ class CityUI:
         data_layout.add_widget(Label(text='id', height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        cities = self.model_class.select()
-        for city in cities:
-            data_layout.add_widget(Label(text=str(city.id), height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(city.name), height=dp(30),
+        base_units = self.model_class.select()
+        for base_unit in base_units:
+            data_layout.add_widget(Label(text=str(base_unit.id), height=dp(30)))
+            data_layout.add_widget(SelectableButton(text=str(base_unit.name), height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
-                                                    id_value=str(city.id),
+                                                    id_value=str(base_unit.id),
                                                     field='name'
                                                     ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(city.id), ui=self))
+                                                   id_value=str(base_unit.id), ui=self))
         data_scroll.add_widget(data_layout)
 
         # Кнопка назад
@@ -85,7 +75,6 @@ class CityUI:
 
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
-        # bl.add_widget(search_layout)
         bl.add_widget(button_layout)
 
         return main_anchor
