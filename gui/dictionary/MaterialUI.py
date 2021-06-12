@@ -2,6 +2,7 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
@@ -46,7 +47,7 @@ class MaterialUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 5
+        cols: 6
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
@@ -54,6 +55,7 @@ class MaterialUI:
         data_layout.add_widget(Label(text='Артикул', height=dp(30)))
         data_layout.add_widget(Label(text='Единицы измерения', height=dp(30)))
         data_layout.add_widget(Label(text='Подгруппа', height=dp(30)))
+        data_layout.add_widget(Label(text='Свойства материала', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         materials = self.model_class.select()
         for material in materials:
@@ -83,6 +85,7 @@ class MaterialUI:
                                                          id_value=str(material.id),
                                                          field='subgroup'
                                                          ))
+            data_layout.add_widget(Button(text='Свойства', height=dp(30)))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(material.id), ui=self))
         data_scroll.add_widget(data_layout)

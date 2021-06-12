@@ -10,10 +10,13 @@ from gui.dictionary.GroupUI import GroupUI
 from gui.dictionary.MaterialUI import MaterialUI
 from gui.dictionary.ProductUI import ProductUI
 from gui.dictionary.ProjectUI import ProjectUI
+from gui.dictionary.PropUI import PropUI
 from gui.dictionary.ProviderUI import ProviderUI
 from gui.dictionary.CityUI import CityUI
 from gui.dictionary.SubgroupUI import SubgroupUI
+from gui.dictionary.TechnologyUI import TechnologyUI
 from gui.dictionary.UnitUI import UnitUI
+from gui.dictionary.WorkUI import WorkUI
 
 
 def main_screen(sm):
@@ -40,11 +43,14 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Базовые единицы', screen_name=BaseUnitUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Единицы измерения', screen_name=UnitUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Перечень свойств', screen_name=PropUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Группы', screen_name=GroupUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Подгруппы', screen_name=SubgroupUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Товары', screen_name=ProductUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Технологии', screen_name=TechnologyUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Проекты', screen_name=ProjectUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
@@ -56,11 +62,14 @@ def dictionary_screen(sm):
     ProviderUI(screen_manager=sm)
     BaseUnitUI(screen_manager=sm)
     UnitUI(screen_manager=sm)
+    PropUI(screen_manager=sm)
     CategoryUI(screen_manager=sm)
     GroupUI(screen_manager=sm)
     SubgroupUI(screen_manager=sm)
     MaterialUI(screen_manager=sm)
     ProductUI(screen_manager=sm)
+    TechnologyUI(screen_manager=sm)
+    WorkUI(screen_manager=sm)
     ProjectUI(screen_manager=sm)
 
 

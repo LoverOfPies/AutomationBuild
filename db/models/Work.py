@@ -11,7 +11,7 @@ class Work(BaseModel):
     # base_amount = DoubleField(default=0)                        # базовое количество
     # full_price = DoubleField(default=0)                         # полная стоимость
     # work_price = DoubleField(default=0)                         # стоимость работ
-    base_unit = ForeignKeyField(BaseUnit, backref='works')      # базовая единица
+    baseunit = ForeignKeyField(BaseUnit, backref='works')       # базовая единица
     technology = ForeignKeyField(Technology, backref='works')   # технология
 
     class Meta:
