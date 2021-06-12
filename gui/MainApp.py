@@ -7,6 +7,8 @@ from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.dictionary.BaseUnitUI import BaseUnitUI
 from gui.dictionary.CategoryUI import CategoryUI
 from gui.dictionary.GroupUI import GroupUI
+from gui.dictionary.MaterialUI import MaterialUI
+from gui.dictionary.ProductUI import ProductUI
 from gui.dictionary.ProjectUI import ProjectUI
 from gui.dictionary.ProviderUI import ProviderUI
 from gui.dictionary.CityUI import CityUI
@@ -41,6 +43,8 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Группы', screen_name=GroupUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Подгруппы', screen_name=SubgroupUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Товары', screen_name=ProductUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Проекты', screen_name=ProjectUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
@@ -55,6 +59,8 @@ def dictionary_screen(sm):
     CategoryUI(screen_manager=sm)
     GroupUI(screen_manager=sm)
     SubgroupUI(screen_manager=sm)
+    MaterialUI(screen_manager=sm)
+    ProductUI(screen_manager=sm)
     ProjectUI(screen_manager=sm)
 
 

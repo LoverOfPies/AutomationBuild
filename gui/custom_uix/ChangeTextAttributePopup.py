@@ -1,16 +1,18 @@
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 
 from db.DbUtils import change_attribute
+from gui.custom_uix.DoubleInput import DoubleInput
 
 
 # Модальное окно для изменения текстового атрибута
 class ChangeTextAttributePopup(Popup):
     button_obj = ObjectProperty()
     dict_class = ObjectProperty()
+    is_double = BooleanProperty()
     id_value = StringProperty()
     field = StringProperty()
 
@@ -39,6 +41,8 @@ class ChangeTextAttributePopup(Popup):
 
         button_layout = BoxLayout(orientation='vertical')
         self.attribute_input = TextInput(multiline=False, text=str(button_obj.text))
+        if not self.is_double:
+            self.attribute_input = DoubleInput(multiline=False, text=str(button_obj.text))
         button_layout.add_widget(self.attribute_input)
         save = Button(size_hint=[1, 0.2], text='Сохранить')
         button_layout.add_widget(save)
