@@ -16,6 +16,7 @@ from gui.dictionary.CityUI import CityUI
 from gui.dictionary.SubgroupUI import SubgroupUI
 from gui.dictionary.TechnologyUI import TechnologyUI
 from gui.dictionary.UnitUI import UnitUI
+from gui.dictionary.WorkMaterialUI import WorkMaterialUI
 from gui.dictionary.WorkUI import WorkUI
 
 
@@ -51,6 +52,8 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Товары', screen_name=ProductUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Технологии', screen_name=TechnologyUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Материалы для работы', screen_name=WorkMaterialUI.screen_name,
+                                   screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Проекты', screen_name=ProjectUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
@@ -70,6 +73,7 @@ def dictionary_screen(sm):
     ProductUI(screen_manager=sm)
     TechnologyUI(screen_manager=sm)
     WorkUI(screen_manager=sm)
+    WorkMaterialUI(screen_manager=sm)
     ProjectUI(screen_manager=sm)
 
 

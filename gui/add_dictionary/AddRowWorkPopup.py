@@ -12,8 +12,7 @@ from db.DbUtils import add_row
 from db.models.BaseUnit import BaseUnit
 from db.models.Technology import Technology
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.BaseUnitModalPopup import BaseUnitModalPopup
-from gui.modal.TechnologyModalPopup import TechnologyModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class AddRowWorkPopup(Popup):
@@ -44,9 +43,11 @@ class AddRowWorkPopup(Popup):
 
         self.name_input = TextInput()
         self.baseunit_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                    modal_popup=BaseUnitModalPopup)
+                                                    modal_popup=ModalPopup, modal_title='Базовые единицы',
+                                                    owner_class=BaseUnit)
         self.technology_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=TechnologyModalPopup)
+                                                      modal_popup=ModalPopup, modal_title='Технологии',
+                                                      owner_class=Technology)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

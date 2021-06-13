@@ -12,8 +12,7 @@ from db.models.Material import Material
 from db.models.Provider import Provider
 from gui.custom_uix.DoubleInput import DoubleInput
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.MaterialModalPopup import MaterialModalPopup
-from gui.modal.ProviderModalPopup import ProviderModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class AddRowProductPopup(Popup):
@@ -46,9 +45,11 @@ class AddRowProductPopup(Popup):
         self.price_input = DoubleInput()
         self.amount_input = DoubleInput()
         self.provider_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                    modal_popup=ProviderModalPopup)
+                                                    modal_popup=ModalPopup, modal_title='Поставщики',
+                                                    owner_class=Provider)
         self.material_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=MaterialModalPopup)
+                                                    modal_popup=ModalPopup, modal_title='Материалы',
+                                                    owner_class=Material)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

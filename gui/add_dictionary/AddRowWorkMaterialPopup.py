@@ -6,23 +6,26 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
-from kivy.uix.textinput import TextInput
 
 from db.DbUtils import add_row
-from db.models.Group import Group
+from db.models.Material import Material
+from db.models.Work import Work
+from gui.custom_uix.DoubleInput import DoubleInput
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
 from gui.modal.ModalPopup import ModalPopup
 
 
-class AddRowSubgroupPopup(Popup):
+class AddRowWorkMaterialPopup(Popup):
     ui_class = ObjectProperty()
 
     def add_value(self, obj):
         self.dismiss()
-        group = Group.select().where(Group.name == self.group_input.text)
+        material = Material.select().where(Material.name == self.material_input.text)
+        work = Work.select().where(Work.name == self.work_input.text)
         model_obj = [
-            {'name': str(self.name_input.text),
-             'group_id': group}
+            {'amount': str(self.amount_input.text),
+             'material_id': material,
+             'work_id': work}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),
@@ -32,16 +35,19 @@ class AddRowSubgroupPopup(Popup):
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):
-        super(AddRowSubgroupPopup, self).__init__(**kwargs)
-        self.size = [400, 400]
+        super(AddRowWorkMaterialPopup, self).__init__(**kwargs)
+        self.size = [600, 400]
         self.size_hint = [None, None]
         self.auto_dismiss = False
         self.ui_class = ui_class
 
-        self.name_input = TextInput()
-        self.group_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=ModalPopup, modal_title='Группы',
-                                                owner_class=Group)
+        self.amount_input = DoubleInput()
+        self.material_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
+                                                    modal_popup=ModalPopup, modal_title='Материалы',
+                                                    owner_class=Material)
+        self.work_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
+                                                modal_popup=ModalPopup, modal_title='Работы',
+                                                owner_class=Work)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
@@ -49,15 +55,17 @@ class AddRowSubgroupPopup(Popup):
                 size:(root.width, root.height)
                 size_hint_x: 1
                 size_hint_y: None
-                cols: 2
+                cols: 4
                 height: self.minimum_height
                 row_default_height: 50
                 row_force_default: True''')
 
-        data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(self.name_input)
-        data_layout.add_widget(Label(text='Группа', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(self.group_input)
+        data_layout.add_widget(Label(text='Количество материала', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(self.amount_input)
+        data_layout.add_widget(Label(text='Материал', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(self.material_input)
+        data_layout.add_widget(Label(text='Работа', size_hint_y=None, height=dp(30)))
+        data_layout.add_widget(self.work_input)
         data_scroll.add_widget(data_layout)
         main_layout.add_widget(data_scroll)
 

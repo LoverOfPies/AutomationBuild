@@ -17,8 +17,7 @@ from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.SubgroupModalPopup import SubgroupModalPopup
-from gui.modal.UnitModalPopup import UnitModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class MaterialUI:
@@ -74,16 +73,16 @@ class MaterialUI:
                                                     field='articul'
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(material.unit.name), height=dp(30),
-                                                         modal_popup=UnitModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Unit,
                                                          id_value=str(material.id),
-                                                         field='unit'
+                                                         field='unit', modal_title='Единицы измерения'
                                                          ))
             data_layout.add_widget(SelectableModalButton(text=str(material.subgroup.name), height=dp(30),
-                                                         modal_popup=SubgroupModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Subgroup,
                                                          id_value=str(material.id),
-                                                         field='subgroup'
+                                                         field='subgroup', modal_title='Подгруппы'
                                                          ))
             data_layout.add_widget(Button(text='Свойства', height=dp(30)))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),

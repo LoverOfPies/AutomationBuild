@@ -15,7 +15,7 @@ from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
 from gui.add_dictionary.AddRowSubgroupPopup import AddRowSubgroupPopup
-from gui.modal.GroupModalPopup import GroupModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class SubgroupUI:
@@ -63,10 +63,10 @@ class SubgroupUI:
                                                     field='name'
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(subgroup.group.name), height=dp(30),
-                                                         modal_popup=GroupModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Group,
                                                          id_value=str(subgroup.id),
-                                                         field='group'
+                                                         field='group', modal_title='Группы'
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(subgroup.id), ui=self))

@@ -11,7 +11,7 @@ from kivy.uix.textinput import TextInput
 from db.DbUtils import add_row
 from db.models.Category import Category
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.CategoryModalPopup import CategoryModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class AddRowGroupPopup(Popup):
@@ -40,7 +40,8 @@ class AddRowGroupPopup(Popup):
 
         self.name_input = TextInput()
         self.category_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=CategoryModalPopup)
+                                                modal_popup=ModalPopup, modal_title='Категории',
+                                                owner_class=Category)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

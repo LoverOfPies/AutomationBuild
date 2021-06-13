@@ -16,8 +16,7 @@ from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.MaterialModalPopup import MaterialModalPopup
-from gui.modal.ProviderModalPopup import ProviderModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class ProductUI:
@@ -72,16 +71,16 @@ class ProductUI:
                                                     field='amount_for_one', is_double=False
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(product.provider.name), height=dp(30),
-                                                         modal_popup=ProviderModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Provider,
                                                          id_value=str(product.id),
-                                                         field='provider'
+                                                         field='provider', modal_title='Поставщики'
                                                          ))
             data_layout.add_widget(SelectableModalButton(text=str(product.material.name), height=dp(30),
-                                                         modal_popup=MaterialModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Material,
                                                          id_value=str(product.id),
-                                                         field='material'
+                                                         field='material', modal_title='Материалы'
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(product.id), ui=self))

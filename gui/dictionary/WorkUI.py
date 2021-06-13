@@ -16,8 +16,7 @@ from gui.custom_uix.DeleteRowButton import DeleteRowButton
 from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.BaseUnitModalPopup import BaseUnitModalPopup
-from gui.modal.TechnologyModalPopup import TechnologyModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class WorkUI:
@@ -64,16 +63,16 @@ class WorkUI:
                                                     field='name'
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(work.baseunit.name), height=dp(30),
-                                                         modal_popup=BaseUnitModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=BaseUnit,
                                                          id_value=str(work.id),
-                                                         field='baseunit'
+                                                         field='baseunit', modal_title='Базовые единицы'
                                                          ))
             data_layout.add_widget(SelectableModalButton(text=str(work.technology.name), height=dp(30),
-                                                         modal_popup=TechnologyModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Technology,
                                                          id_value=str(work.id),
-                                                         field='technology'
+                                                         field='technology', modal_title='Технологии'
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(work.id), ui=self))

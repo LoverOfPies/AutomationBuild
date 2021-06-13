@@ -12,8 +12,7 @@ from db.DbUtils import add_row
 from db.models.Subgroup import Subgroup
 from db.models.Unit import Unit
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.SubgroupModalPopup import SubgroupModalPopup
-from gui.modal.UnitModalPopup import UnitModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class AddRowMaterialPopup(Popup):
@@ -46,9 +45,11 @@ class AddRowMaterialPopup(Popup):
         self.name_input = TextInput()
         self.articul_input = TextInput()
         self.unit_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                    modal_popup=UnitModalPopup)
+                                                modal_popup=ModalPopup, modal_title='Единицы измерения',
+                                                owner_class=Unit)
         self.subgroup_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=SubgroupModalPopup)
+                                                    modal_popup=ModalPopup, modal_title='Подгруппы',
+                                                    owner_class=Subgroup)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

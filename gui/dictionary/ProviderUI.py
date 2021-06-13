@@ -17,8 +17,8 @@ from gui.custom_uix.OpenScreenButton import OpenScreenButton
 from gui.custom_uix.SelectableButton import SelectableButton
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
 from gui.add_dictionary.AddProviderPopup import AddRowProviderPopup
-from gui.modal.CItyModalPopup import CityModalPopup
 from gui.dictionary.CityUI import CityUI
+from gui.modal.ModalPopup import ModalPopup
 
 
 class ProviderUI:
@@ -68,10 +68,10 @@ class ProviderUI:
                                                     field='name'
                                                     ))
             data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), height=dp(30),
-                                                         modal_popup=CityModalPopup, change_flag=True,
+                                                         modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=City,
                                                          id_value=str(provider.id),
-                                                         field='city'
+                                                         field='city', modal_title='Города'
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(provider.id), ui=self))

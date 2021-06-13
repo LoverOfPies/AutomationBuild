@@ -11,7 +11,7 @@ from kivy.uix.textinput import TextInput
 from db.DbUtils import add_row
 from db.models.City import City
 from gui.custom_uix.SelectableModalButton import SelectableModalButton
-from gui.modal.CItyModalPopup import CityModalPopup
+from gui.modal.ModalPopup import ModalPopup
 
 
 class AddRowProviderPopup(Popup):
@@ -40,7 +40,8 @@ class AddRowProviderPopup(Popup):
 
         self.name_input = TextInput()
         self.city_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=CityModalPopup)
+                                                modal_popup=ModalPopup, modal_title='Города',
+                                                owner_class=City)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

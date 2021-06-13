@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 class SelectableModalButton(Button):
     modal_popup = ObjectProperty()
     change_flag = BooleanProperty()
+    modal_title = StringProperty()
 
     dict_class = ObjectProperty()
     owner_class = ObjectProperty()
@@ -14,9 +15,9 @@ class SelectableModalButton(Button):
 
     def on_press(self):
         if not self.change_flag:
-            self.owner_class = None
             self.dict_class = None
             self.id_value = ''
             self.field = ''
-        popup = self.modal_popup(self, self.change_flag, self.dict_class, self.owner_class, self.id_value, self.field)
+        popup = self.modal_popup(self, self.change_flag, self.dict_class, self.owner_class, self.id_value, self.field,
+                                 self.modal_title)
         popup.open()

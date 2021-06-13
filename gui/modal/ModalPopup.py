@@ -7,11 +7,11 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 
-from db.models.Material import Material
+from db.models.Work import Work
 from gui.custom_uix.SelectRowButton import SelectRowButton
 
 
-class MaterialModalPopup(Popup):
+class ModalPopup(Popup):
     button_obj = ObjectProperty()
     change_flag = BooleanProperty()
 
@@ -20,9 +20,9 @@ class MaterialModalPopup(Popup):
     id_value = StringProperty()
     field = StringProperty()
 
-    def __init__(self, button_obj, change_flag, dict_class, owner_class, id_value, field, **kwargs):
-        super(MaterialModalPopup, self).__init__(**kwargs)
-        self.title = 'Материалы'
+    def __init__(self, button_obj, change_flag, dict_class, owner_class, id_value, field, modal_title, **kwargs):
+        super(ModalPopup, self).__init__(**kwargs)
+        self.title = modal_title
         self.size = [400, 400]
         self.size_hint = [None, None]
         self.auto_dismiss = False
@@ -40,12 +40,12 @@ class MaterialModalPopup(Popup):
         data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
-        materials = Material.select()
-        for material in materials:
-            data_layout.add_widget(Label(text=str(material.id), size_hint_y=None, height=dp(30)))
-            data_layout.add_widget(Label(text=str(material.name), size_hint_y=None, height=dp(30)))
+        rows = owner_class.select()
+        for row in rows:
+            data_layout.add_widget(Label(text=str(row.id), size_hint_y=None, height=dp(30)))
+            data_layout.add_widget(Label(text=str(row.name), size_hint_y=None, height=dp(30)))
             data_layout.add_widget(SelectRowButton(text='Выбрать', height=dp(30), popup=self,
-                                                   name_row=material.name, button_obj=button_obj,
+                                                   name_row=row.name, button_obj=button_obj,
                                                    change_flag=change_flag,
                                                    dict_class=dict_class, owner_class=owner_class,
                                                    id_value=id_value,
