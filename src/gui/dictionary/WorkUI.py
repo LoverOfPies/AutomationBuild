@@ -7,7 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.BaseUnit import BaseUnit
-from src.db.models.Technology import Technology
+from src.db.models.WorkTechnology import WorkTechnology
 from src.db.models.Work import Work
 from src.gui.add_dictionary.AddRowWorkPopup import AddRowWorkPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
@@ -70,7 +70,7 @@ class WorkUI:
                                                          ))
             data_layout.add_widget(SelectableModalButton(text=str(work.technology.name), height=dp(30),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Technology,
+                                                         dict_class=self.model_class, owner_class=WorkTechnology,
                                                          id_value=str(work.id),
                                                          field='technology', modal_title='Технологии'
                                                          ))

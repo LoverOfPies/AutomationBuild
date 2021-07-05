@@ -10,7 +10,7 @@ from kivy.uix.textinput import TextInput
 
 from src.db.DbUtils import add_row
 from src.db.models.BaseUnit import BaseUnit
-from src.db.models.Technology import Technology
+from src.db.models.WorkTechnology import WorkTechnology
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
 
@@ -21,7 +21,7 @@ class AddRowWorkPopup(Popup):
     def add_value(self, obj):
         self.dismiss()
         baseunit = BaseUnit.select().where(BaseUnit.name == self.baseunit_input.text)
-        technology = Technology.select().where(Technology.name == self.technology_input.text)
+        technology = WorkTechnology.select().where(WorkTechnology.name == self.technology_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
              'baseunit_id': baseunit,
@@ -47,7 +47,7 @@ class AddRowWorkPopup(Popup):
                                                     owner_class=BaseUnit)
         self.technology_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                       modal_popup=ModalPopup, modal_title='Технологии',
-                                                      owner_class=Technology)
+                                                      owner_class=WorkTechnology)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

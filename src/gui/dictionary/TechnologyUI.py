@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Technology import Technology
+from src.db.models.WorkTechnology import WorkTechnology
 from src.gui.add_dictionary.AddRowTechnologyPopup import AddRowTechnologyPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -18,7 +18,7 @@ from src.gui.custom_uix.SelectableButton import SelectableButton
 class TechnologyUI:
     screen_name = 'technology_screen'
     parent_screen = 'dictionary_screen'
-    model_class = Technology
+    model_class = WorkTechnology
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):

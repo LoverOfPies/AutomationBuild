@@ -50,11 +50,11 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Подгруппы', screen_name=SubgroupUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Товары', screen_name=ProductUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Технологии', screen_name=TechnologyUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Материалы для работы', screen_name=WorkMaterialUI.screen_name,
-                                   screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Проекты', screen_name=ProjectUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Технологии', screen_name=TechnologyUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Материалы для работы', screen_name=WorkMaterialUI.screen_name,
+    #                                screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Проекты', screen_name=ProjectUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
@@ -71,10 +71,10 @@ def dictionary_screen(sm):
     SubgroupUI(screen_manager=sm)
     MaterialUI(screen_manager=sm)
     ProductUI(screen_manager=sm)
-    TechnologyUI(screen_manager=sm)
-    WorkUI(screen_manager=sm)
-    WorkMaterialUI(screen_manager=sm)
-    ProjectUI(screen_manager=sm)
+    # TechnologyUI(screen_manager=sm)
+    # WorkUI(screen_manager=sm)
+    # WorkMaterialUI(screen_manager=sm)
+    # ProjectUI(screen_manager=sm)
 
 
 class MainApp(App):
