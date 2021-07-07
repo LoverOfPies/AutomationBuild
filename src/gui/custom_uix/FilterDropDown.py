@@ -9,7 +9,6 @@ class FilterDropDown(DropDown):
 
     def change_attribute(self, button):
         self.main_button.text = button.text
-        self.ui
 
     def __init__(self, dict_class, **kwargs):
         super().__init__(**kwargs)

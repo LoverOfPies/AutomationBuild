@@ -21,13 +21,17 @@ from src.gui.modal.ModalPopup import ModalPopup
 
 class ProductUI:
     screen_name = 'product_screen'
-    parent_screen = 'dictionary_screen'
+    parent_screen = 'provider_screen'
     model_class = Product
     screen = Screen(name=screen_name)
+    filter_name = ''
 
-    def __init__(self, screen_manager):
+    def __init__(self, screen_manager, filter_name):
         self.sm = screen_manager
+        self.filter_name = filter_name
         self.update_screen()
+        if screen_manager.has_screen('product_screen'):
+            screen_manager.remove_widget(screen_manager.get_screen('product_screen'))
         self.sm.add_widget(self.screen)
 
     def update_screen(self):
@@ -54,7 +58,8 @@ class ProductUI:
         data_layout.add_widget(Label(text='Поставщик', height=dp(30)))
         data_layout.add_widget(Label(text='Материал', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        products = self.model_class.select()
+        provider = Provider.select().where(Provider.name == self.filter_name)
+        products = Product.select().where(Product.provider == provider)
         for product in products:
             data_layout.add_widget(SelectableButton(text=str(product.price), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить цену",

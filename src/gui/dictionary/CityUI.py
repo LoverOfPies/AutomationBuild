@@ -58,16 +58,14 @@ class CityUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 3
+        cols: 2
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         cities = self.model_class.select()
         for city in cities:
-            data_layout.add_widget(Label(text=str(city.id), height=dp(30)))
             data_layout.add_widget(SelectableButton(text=str(city.name), height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,

@@ -20,7 +20,7 @@ class AddRowProductPopup(Popup):
 
     def add_value(self, obj):
         self.dismiss()
-        provider = Provider.select().where(Provider.name == self.provider_input.text)
+        provider = Provider.select().where(Provider.name == self.ui_class.filter_name)
         material = Material.select().where(Material.name == self.material_input.text)
         model_obj = [
             {'price': str(self.price_input.text),
@@ -44,9 +44,9 @@ class AddRowProductPopup(Popup):
 
         self.price_input = DoubleInput()
         self.amount_input = DoubleInput()
-        self.provider_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                    modal_popup=ModalPopup, modal_title='Поставщики',
-                                                    owner_class=Provider)
+        # self.provider_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
+        #                                             modal_popup=ModalPopup, modal_title='Поставщики',
+        #                                             owner_class=Provider)
         self.material_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                     modal_popup=ModalPopup, modal_title='Материалы',
                                                     owner_class=Material)
@@ -57,7 +57,7 @@ class AddRowProductPopup(Popup):
                 size:(root.width, root.height)
                 size_hint_x: 1
                 size_hint_y: None
-                cols: 4
+                cols: 2
                 height: self.minimum_height
                 row_default_height: 50
                 row_force_default: True''')
@@ -66,8 +66,8 @@ class AddRowProductPopup(Popup):
         data_layout.add_widget(self.price_input)
         data_layout.add_widget(Label(text='Материала за 1 шт', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(self.amount_input)
-        data_layout.add_widget(Label(text='Поставщик', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(self.provider_input)
+        # data_layout.add_widget(Label(text='Поставщик', size_hint_y=None, height=dp(30)))
+        # data_layout.add_widget(self.provider_input)
         data_layout.add_widget(Label(text='Материал', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(self.material_input)
         data_scroll.add_widget(data_layout)

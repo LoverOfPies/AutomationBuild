@@ -3,6 +3,7 @@ from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.dropdown import DropDown
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
@@ -13,11 +14,13 @@ from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.FilterDropDown import FilterDropDown
+from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.add_dictionary.AddProviderPopup import AddRowProviderPopup
 from src.gui.dictionary.CityUI import CityUI
+from src.gui.dictionary.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 
@@ -48,18 +51,18 @@ class ProviderUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 5
+        cols: 4
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='Город', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
+        # city = City.select().where(City.name == 'Рыбинск')
+        # providers = self.model_class.select().where(Provider.city == city)
         providers = self.model_class.select()
         for provider in providers:
-            data_layout.add_widget(Label(text=str(provider.id), height=dp(30)))
             data_layout.add_widget(SelectableButton(text=str(provider.name), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
@@ -75,7 +78,8 @@ class ProviderUI:
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(provider.id), ui=self))
-            data_layout.add_widget(Label(text='Товары поставщика', height=dp(30)))
+            data_layout.add_widget(OpenFilterScreenButton(text='Товары', screen_name=ProductUI.screen_name,
+                                                    screen_manager=self.sm, height=dp(30), filter_name=str(provider.name)))
         data_scroll.add_widget(data_layout)
 
         # Кнопки управления
@@ -83,20 +87,23 @@ class ProviderUI:
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
                                               popup_title='Добавление записи "Поставщик"'))
 
+        # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
-        dropdown = FilterDropDown(dict_class=City, main_button=self.citydrop_button)
-        self.citydrop_button.bind(on_release=dropdown.open)
-        dropdown_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        dropdown_layout.add_widget(Label(text='Город: '))
-        dropdown_layout.add_widget(self.citydrop_button)
+        # Фильтр с выпадающим списком
+        # dropdown = FilterDropDown(dict_class=City, main_button=self.citydrop_button)
+        # self.citydrop_button.bind(on_release=dropdown.open)
+        # dropdown_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
+        # dropdown_layout.add_widget(Label(text='Город: '))
+        # dropdown_layout.add_widget(self.citydrop_button)
 
+        # Справочник городов
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
 
         bl.add_widget(back_layout)
-        bl.add_widget(dropdown_layout)
+        # bl.add_widget(dropdown_layout)
         bl.add_widget(city_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)

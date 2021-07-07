@@ -32,16 +32,14 @@ class ModalPopup(Popup):
                 size:(root.width, root.height)
                 size_hint_x: 1
                 size_hint_y: None
-                cols: 3
+                cols: 2
                 height: self.minimum_height
                 row_default_height: 50
                 row_force_default: True''')
-        data_layout.add_widget(Label(text='id', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(Label(text='', size_hint_y=None, height=dp(30)))
         rows = owner_class.select()
         for row in rows:
-            data_layout.add_widget(Label(text=str(row.id), size_hint_y=None, height=dp(30)))
             data_layout.add_widget(Label(text=str(row.name), size_hint_y=None, height=dp(30)))
             data_layout.add_widget(SelectRowButton(text='Выбрать', height=dp(30), popup=self,
                                                    name_row=row.name, button_obj=button_obj,
