@@ -11,8 +11,10 @@ from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.add_dictionary.AddRowBaseUnitPopup import AddRowBaseUnitPopup
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
+from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
+from src.gui.modal.FileChoosePopup import FileChoosePopup
 
 
 class BaseUnitUI:
@@ -51,6 +53,7 @@ class BaseUnitUI:
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowBaseUnitPopup,
                                               popup_title='Добавление записи "Базовой единиц"'))
+        button_layout.add_widget(ImportButton(text='Импорт данных', popup=FileChoosePopup, ui=self))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

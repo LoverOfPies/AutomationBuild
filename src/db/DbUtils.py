@@ -27,4 +27,19 @@ def delete_row(data):
 def add_row(data):
     model_class = data.get('model_class')
     value = data.get('value')
-    model_class.insert(value).execute()
+    if check_value(value, model_class):
+        model_class.insert(value).execute()
+
+
+# Добавить несколько записей в бд
+def add_multirow(data):
+    model_class = data.get('model_class')
+    values = data.get('value')
+    for value in values:
+        if check_value(value, model_class):
+            model_class.insert(value).execute()
+
+
+def check_value(value, model_class):
+    result = model_class.get_or_none(name=value[0].get('name'))
+    return True if result is None else False
