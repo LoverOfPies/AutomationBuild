@@ -8,16 +8,11 @@ from src.gui.dictionary.BaseUnitUI import BaseUnitUI
 from src.gui.dictionary.CategoryUI import CategoryUI
 from src.gui.dictionary.GroupUI import GroupUI
 from src.gui.dictionary.MaterialUI import MaterialUI
-from src.gui.dictionary.ProductUI import ProductUI
-from src.gui.dictionary.ProjectUI import ProjectUI
 from src.gui.dictionary.PropUI import PropUI
 from src.gui.dictionary.ProviderUI import ProviderUI
 from src.gui.dictionary.CityUI import CityUI
 from src.gui.dictionary.SubgroupUI import SubgroupUI
-from src.gui.dictionary.TechnologyUI import TechnologyUI
 from src.gui.dictionary.UnitUI import UnitUI
-from src.gui.dictionary.WorkMaterialUI import WorkMaterialUI
-from src.gui.dictionary.WorkUI import WorkUI
 
 
 def main_screen(sm):
@@ -41,13 +36,13 @@ def dictionary_screen(sm):
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .5])
     al.add_widget(bl)
     bl.add_widget(OpenScreenButton(text='Назад', screen_name=parent_screen, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Базовые единицы', screen_name=BaseUnitUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Единицы измерения', screen_name=UnitUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Перечень свойств', screen_name=PropUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Группы', screen_name=GroupUI.screen_name, screen_manager=sm))
-    bl.add_widget(OpenScreenButton(text='Подгруппы', screen_name=SubgroupUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Свойства материалов', screen_name=PropUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Категории', screen_name=CategoryUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Группы', screen_name=GroupUI.screen_name, screen_manager=sm))
+    # bl.add_widget(OpenScreenButton(text='Подгруппы', screen_name=SubgroupUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
     # bl.add_widget(OpenScreenButton(text='Технологии', screen_name=TechnologyUI.screen_name, screen_manager=sm))
     # bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))

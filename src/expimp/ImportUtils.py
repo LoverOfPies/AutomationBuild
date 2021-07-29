@@ -1,10 +1,9 @@
 from openpyxl import load_workbook
 
 from src.db.DbUtils import add_multirow
-from src.db.models.BaseUnit import BaseUnit
 
 
-def import_base_unit(filename, ui):
+def import_single_row(filename, ui):
     wb = load_workbook(filename)
     sheet = wb.get_sheet_by_name('Лист1')
     values = []
@@ -13,7 +12,7 @@ def import_base_unit(filename, ui):
             continue
         values.append([{'name': str(cell.value)}])
     data = dict([
-        ('model_class', BaseUnit),
+        ('model_class', ui.model_class),
         ('value', values),
     ])
     add_multirow(data)

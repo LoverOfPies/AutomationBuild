@@ -52,8 +52,9 @@ class BaseUnitUI:
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowBaseUnitPopup,
-                                              popup_title='Добавление записи "Базовой единиц"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных', popup=FileChoosePopup, ui=self))
+                                              popup_title='Добавление записи "Базовая единица"'))
+        button_layout.add_widget(ImportButton(text='Импорт данных', popup=FileChoosePopup, ui=self,
+                                              popup_title='Импорт данных таблицы "Базовая единица"'))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
