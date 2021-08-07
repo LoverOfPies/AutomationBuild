@@ -14,9 +14,11 @@ from src.gui.add_dictionary.AddRowMaterialPopup import AddRowMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
+from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
+from src.gui.dictionary.material.PropMaterialUI import PropMaterialUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 
@@ -46,14 +48,13 @@ class MaterialUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 6
+        cols: 5
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='Артикул', height=dp(30)))
         data_layout.add_widget(Label(text='Единицы измерения', height=dp(30)))
-        data_layout.add_widget(Label(text='Подгруппа', height=dp(30)))
         data_layout.add_widget(Label(text='Свойства материала', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         materials = self.model_class.select()
@@ -78,13 +79,9 @@ class MaterialUI:
                                                          id_value=str(material.id),
                                                          field='unit', modal_title='Единицы измерения'
                                                          ))
-            data_layout.add_widget(SelectableModalButton(text=str(material.subgroup.name), height=dp(30),
-                                                         modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Subgroup,
-                                                         id_value=str(material.id),
-                                                         field='subgroup', modal_title='Подгруппы'
-                                                         ))
-            data_layout.add_widget(Button(text='Свойства', height=dp(30)))
+            data_layout.add_widget(OpenFilterScreenButton(text='Свойства', screen_name=PropMaterialUI.screen_name,
+                                                          screen_manager=self.sm, height=dp(30),
+                                                          filter_name=str(material.name)))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(material.id), ui=self))
         data_scroll.add_widget(data_layout)

@@ -3,7 +3,6 @@ from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.dropdown import DropDown
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
@@ -13,14 +12,13 @@ from src.db.models.Provider import Provider
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.FilterDropDown import FilterDropDown
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.add_dictionary.AddProviderPopup import AddRowProviderPopup
-from src.gui.dictionary.CityUI import CityUI
-from src.gui.dictionary.ProductUI import ProductUI
+from src.gui.dictionary.provider.CityUI import CityUI
+from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 
@@ -57,29 +55,37 @@ class ProviderUI:
         row_force_default: True''')
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='Город', height=dp(30)))
-        data_layout.add_widget(Label(text='', height=dp(30)))
+        data_layout.add_widget(Label(text='Товары поставщика', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         # city = City.select().where(City.name == 'Рыбинск')
         # providers = self.model_class.select().where(Provider.city == city)
         providers = self.model_class.select()
         for provider in providers:
-            data_layout.add_widget(SelectableButton(text=str(provider.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30), size_hint_y=None,
+                                                    text=str(provider.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(provider.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(provider.city.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(provider.city.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=City,
                                                          id_value=str(provider.id),
                                                          field='city', modal_title='Города'
                                                          ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(provider.id), ui=self))
-            data_layout.add_widget(OpenFilterScreenButton(text='Товары', screen_name=ProductUI.screen_name,
-                                                    screen_manager=self.sm, height=dp(30), filter_name=str(provider.name)))
+            data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
+                                                          text='Товары ' + provider.name,
+                                                          screen_name=ProductUI.screen_name,
+                                                          screen_manager=self.sm,
+                                                          filter_name=str(provider.name)
+                                                          ))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(provider.id), ui=self
+                                                   ))
         data_scroll.add_widget(data_layout)
 
         # Кнопки управления

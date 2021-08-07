@@ -11,7 +11,7 @@ from kivy.uix.textinput import TextInput
 from src.db.DbUtils import add_row
 
 
-class AddRowBaseUnitPopup(Popup):
+class AddRowSimplePopup(Popup):
     ui_class = ObjectProperty()
 
     def add_value(self, obj):
@@ -27,7 +27,7 @@ class AddRowBaseUnitPopup(Popup):
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):
-        super(AddRowBaseUnitPopup, self).__init__(**kwargs)
+        super(AddRowSimplePopup, self).__init__(**kwargs)
         self.size = [400, 400]
         self.size_hint = [None, None]
         self.auto_dismiss = False

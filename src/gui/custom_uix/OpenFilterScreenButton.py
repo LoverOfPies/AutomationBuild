@@ -3,7 +3,7 @@ from kivy.uix.button import Button
 
 
 # Кнопка переключения между экранами
-from src.gui.dictionary.ProductUI import ProductUI
+from src.gui.dictionary.provider.ProductUI import ProductUI
 
 
 class OpenFilterScreenButton(Button):

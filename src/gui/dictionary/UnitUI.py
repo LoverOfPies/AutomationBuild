@@ -7,7 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.Unit import Unit
-from src.gui.add_dictionary.AddRowUnitPopup import AddRowUnitPopup
+from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -39,11 +39,19 @@ class UnitUI:
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
 
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Единицы измерения', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowUnitPopup,
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowSimplePopup,
                                               popup_title='Добавление записи "Единица измерения"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных', popup=FileChoosePopup, ui=self,
+        button_layout.add_widget(ImportButton(text='Импорт данных',
+                                              ui=self,
                                               popup_title='Импорт данных таблицы "Единица измерения"'))
 
         # Вывод данных
@@ -52,31 +60,33 @@ class UnitUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 3
+        cols: 2
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         base_units = self.model_class.select()
         for base_unit in base_units:
-            data_layout.add_widget(Label(text=str(base_unit.id), height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(base_unit.name), height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
+                                                    text=str(base_unit.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(base_unit.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(base_unit.id), ui=self))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(base_unit.id),
+                                                   ui=self))
         data_scroll.add_widget(data_layout)
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)
