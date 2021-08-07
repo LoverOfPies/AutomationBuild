@@ -18,7 +18,11 @@ from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
+from src.gui.dictionary.material.CategoryUI import CategoryUI
+from src.gui.dictionary.material.GroupUI import GroupUI
 from src.gui.dictionary.material.PropMaterialUI import PropMaterialUI
+from src.gui.dictionary.material.SubgroupUI import SubgroupUI
+from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 
@@ -59,42 +63,85 @@ class MaterialUI:
         data_layout.add_widget(Label(text='', height=dp(30)))
         materials = self.model_class.select()
         for material in materials:
-            data_layout.add_widget(SelectableButton(text=str(material.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+                                                    text=str(material.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(material.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(SelectableButton(text=str(material.articul), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+                                                    text=str(material.articul),
                                                     popup_title="Изменить артикул",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(material.id),
                                                     field='articul'
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(material.unit.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(material.unit.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Unit,
                                                          id_value=str(material.id),
                                                          field='unit', modal_title='Единицы измерения'
                                                          ))
-            data_layout.add_widget(OpenFilterScreenButton(text='Свойства', screen_name=PropMaterialUI.screen_name,
-                                                          screen_manager=self.sm, height=dp(30),
-                                                          filter_name=str(material.name)))
+            data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
+                                                          text='Свойства',
+                                                          screen_manager=self.sm,
+                                                          filter_ui=PropMaterialUI,
+                                                          filter_name=str(material.name)
+                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(material.id), ui=self))
         data_scroll.add_widget(data_layout)
 
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_label = Label(text='Материалы', font_size='20sp')
+        title_layout.add_widget(title_label)
+
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowMaterialPopup,
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowMaterialPopup,
                                               popup_title='Добавление записи "Материал"'))
+        button_layout.add_widget(Button(text='Импорт данных'))
 
+        # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
+        # Категории
+        category_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        category_layout.add_widget(OpenScreenButton(text='Категории',
+                                                    screen_name=CategoryUI.screen_name,
+                                                    screen_manager=self.sm))
+        category_layout.add_widget(Label(text='Категория: '))
+        category_layout.add_widget(Button(text='Заглушка'))
+
+        # Группа
+        group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        group_layout.add_widget(OpenScreenButton(text='Группа',
+                                                 screen_name=GroupUI.screen_name,
+                                                 screen_manager=self.sm))
+        group_layout.add_widget(Label(text='Группа: '))
+        group_layout.add_widget(Button(text='Заглушка'))
+
+        # Подгруппа
+        subgroup_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        subgroup_layout.add_widget(OpenScreenButton(text='Подгруппа',
+                                                    screen_name=SubgroupUI.screen_name,
+                                                    screen_manager=self.sm))
+        subgroup_layout.add_widget(Label(text='Подгруппа: '))
+        subgroup_layout.add_widget(Button(text='Заглушка'))
+
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
+        bl.add_widget(category_layout)
+        bl.add_widget(group_layout)
+        bl.add_widget(subgroup_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)
 

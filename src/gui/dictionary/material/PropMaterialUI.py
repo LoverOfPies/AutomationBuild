@@ -13,6 +13,7 @@ from src.db.models.PropMaterial import PropMaterial
 from src.db.models.Provider import Provider
 from src.db.models.Unit import Unit
 from src.gui.add_dictionary.AddRowProductPopup import AddRowProductPopup
+from src.gui.add_dictionary.AddRowPropMaterialPopup import AddRowPropMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -52,7 +53,7 @@ class PropMaterialUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 5
+        cols: 4
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
@@ -63,37 +64,52 @@ class PropMaterialUI:
         material = Material.select().where(Material.name == self.filter_name)
         propMaterials = PropMaterial.select().where(PropMaterial.material == material)
         for propMaterial in propMaterials:
-            data_layout.add_widget(SelectableButton(text=str(propMaterial.amount), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+                                                    text=str(propMaterial.amount),
                                                     popup_title="Изменить количество",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(propMaterial.id),
                                                     field='amount', is_double=False
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(propMaterial.prop.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(propMaterial.prop.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Prop,
                                                          id_value=str(propMaterial.id),
                                                          field='prop', modal_title='Свойства'
                                                          ))
-            data_layout.add_widget(SelectableModalButton(text=str(propMaterial.unit.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(propMaterial.unit.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Unit,
                                                          id_value=str(propMaterial.id),
                                                          field='unit', modal_title='Единицы измерения'
                                                          ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(propMaterial.id), ui=self))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(propMaterial.id),
+                                                   ui=self
+                                                   ))
         data_scroll.add_widget(data_layout)
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_label = Label(text='Свойства ' + self.filter_name, font_size='20sp')
+        title_layout.add_widget(title_label)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        # button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProductPopup,
-        #                                       popup_title='Добавление записи "Свойство материала"'))
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowPropMaterialPopup,
+                                              popup_title='Добавление записи "Свойство материала"'))
 
+        # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)

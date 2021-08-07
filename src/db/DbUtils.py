@@ -1,4 +1,7 @@
 # Изменить запись в бд
+from src.db.models.PropMaterial import PropMaterial
+
+
 def change_attribute(data):
     model_class = data.get('model_class')
     id_value = data.get('id_value')
@@ -41,5 +44,8 @@ def add_multirow(data):
 
 
 def check_value(value, model_class):
-    result = model_class.get_or_none(name=value[0].get('name'))
+    try:
+        result = model_class.get_or_none(name=value[0].get('name'))
+    except:
+        return True
     return True if result is None else False

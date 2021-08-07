@@ -69,8 +69,8 @@ class PropUI:
 
         # Заголовок формы
         title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_screen = Label(text='Наименования свойств', font_size='20sp')
-        title_layout.add_widget(title_screen)
+        title_label = Label(text='Наименования свойств', font_size='20sp')
+        title_layout.add_widget(title_label)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])

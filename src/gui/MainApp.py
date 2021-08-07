@@ -5,6 +5,9 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
+from src.gui.dictionary.material.CategoryUI import CategoryUI
+from src.gui.dictionary.material.GroupUI import GroupUI
+from src.gui.dictionary.material.SubgroupUI import SubgroupUI
 from src.gui.dictionary.simple_dictionary.BaseUnitUI import BaseUnitUI
 from src.gui.dictionary.material.MaterialUI import MaterialUI
 from src.gui.dictionary.simple_dictionary.PropUI import PropUI
@@ -19,8 +22,8 @@ def main_screen(sm):
     al = AnchorLayout()
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
     al.add_widget(bl)
-    title_screen = Label(text='Система расчёта строительства', font_size='20sp')
-    bl.add_widget(title_screen)
+    title_label = Label(text='Система расчёта строительства', font_size='20sp')
+    bl.add_widget(title_label)
     bl.add_widget(OpenScreenButton(text='Справочники', screen_name='dictionary_screen', screen_manager=sm))
     screen = Screen(name=screen_name)
     screen.add_widget(al)
@@ -35,8 +38,8 @@ def dictionary_screen(sm):
     al = AnchorLayout()
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .5])
     al.add_widget(bl)
-    title_screen = Label(text='Справочники', font_size='20sp')
-    bl.add_widget(title_screen)
+    title_label = Label(text='Справочники', font_size='20sp')
+    bl.add_widget(title_label)
     bl.add_widget(OpenScreenButton(text='Назад', screen_name=parent_screen, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Базовые единицы', screen_name=BaseUnitUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Единицы измерения', screen_name=UnitUI.screen_name, screen_manager=sm))
@@ -58,6 +61,9 @@ def dictionary_screen(sm):
     ProviderUI(screen_manager=sm)
 
     MaterialUI(screen_manager=sm)
+    CategoryUI(screen_manager=sm)
+    GroupUI(screen_manager=sm)
+    SubgroupUI(screen_manager=sm)
 
 
 class MainApp(App):

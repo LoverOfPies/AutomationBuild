@@ -8,10 +8,10 @@ from src.gui.dictionary.provider.ProductUI import ProductUI
 
 class OpenFilterScreenButton(Button):
     screen_manager = ObjectProperty()
-    screen_name = ObjectProperty()
+    filter_ui = ObjectProperty()
     filter_name = StringProperty()
 
     def on_press(self, *args):
-        ProductUI(screen_manager=self.screen_manager, filter_name=self.filter_name)
+        self.filter_ui(screen_manager=self.screen_manager, filter_name=self.filter_name)
         super(OpenFilterScreenButton, self).on_press()
-        self.screen_manager.current = self.screen_name
+        self.screen_manager.current = self.filter_ui.screen_name

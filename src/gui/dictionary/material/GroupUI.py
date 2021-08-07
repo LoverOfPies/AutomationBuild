@@ -20,7 +20,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 
 class GroupUI:
     screen_name = 'group_screen'
-    parent_screen = 'dictionary_screen'
+    parent_screen = 'material_screen'
     model_class = Group
     screen = Screen(name=screen_name)
 
@@ -44,42 +44,53 @@ class GroupUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 4
+        cols: 3
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='id', height=dp(30)))
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='Категория', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         groups = self.model_class.select()
         for group in groups:
-            data_layout.add_widget(Label(text=str(group.id), height=dp(30)))
-            data_layout.add_widget(SelectableButton(text=str(group.name), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+                                                    text=str(group.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(group.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(group.category.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(group.category.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Category,
                                                          id_value=str(group.id),
                                                          field='category', modal_title='Категории'
                                                          ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(group.id), ui=self))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(group.id),
+                                                   ui=self
+                                                   ))
         data_scroll.add_widget(data_layout)
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_label = Label(text='Группы материалов', font_size='20sp')
+        title_layout.add_widget(title_label)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowGroupPopup,
-                                              popup_title='Добавление записи "Группа"'))
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowGroupPopup,
+                                              popup_title='Добавление записи "Группа материала"'))
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)

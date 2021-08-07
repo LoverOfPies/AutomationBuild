@@ -79,8 +79,8 @@ class ProviderUI:
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Товары ' + provider.name,
-                                                          screen_name=ProductUI.screen_name,
                                                           screen_manager=self.sm,
+                                                          filter_ui=ProductUI,
                                                           filter_name=str(provider.name)
                                                           ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
@@ -92,8 +92,8 @@ class ProviderUI:
 
         # Заголовок формы
         title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_screen = Label(text='Поставщики', font_size='20sp')
-        title_layout.add_widget(title_screen)
+        title_label = Label(text='Поставщики', font_size='20sp')
+        title_layout.add_widget(title_label)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
@@ -117,6 +117,8 @@ class ProviderUI:
         # Справочник городов
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
+        city_layout.add_widget(Label(text='Город: '))
+        city_layout.add_widget(Button(text='Заглушка'))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)
