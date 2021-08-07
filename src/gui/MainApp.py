@@ -5,12 +5,12 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
-from src.gui.dictionary.BaseUnitUI import BaseUnitUI
+from src.gui.dictionary.simple_dictionary.BaseUnitUI import BaseUnitUI
 from src.gui.dictionary.material.MaterialUI import MaterialUI
-from src.gui.dictionary.PropUI import PropUI
+from src.gui.dictionary.simple_dictionary.PropUI import PropUI
 from src.gui.dictionary.provider.ProviderUI import ProviderUI
 from src.gui.dictionary.provider.CityUI import CityUI
-from src.gui.dictionary.UnitUI import UnitUI
+from src.gui.dictionary.simple_dictionary.UnitUI import UnitUI
 
 
 def main_screen(sm):
