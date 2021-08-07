@@ -12,6 +12,7 @@ from src.db.models.Provider import Provider
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
+from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
@@ -84,14 +85,23 @@ class ProviderUI:
                                                           ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',
-                                                   id_value=str(provider.id), ui=self
+                                                   id_value=str(provider.id),
+                                                   ui=self
                                                    ))
         data_scroll.add_widget(data_layout)
 
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Поставщики', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProviderPopup,
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowProviderPopup,
                                               popup_title='Добавление записи "Поставщик"'))
+        button_layout.add_widget(Button(text='Импорт данных'))
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
@@ -108,6 +118,7 @@ class ProviderUI:
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
 
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
         # bl.add_widget(dropdown_layout)
         bl.add_widget(city_layout)

@@ -49,21 +49,6 @@ class BaseUnitUI:
         # search_layout.add_widget(name_input)
         # search_layout.add_widget(search_button)
 
-        # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_screen = Label(text='Базовые единицы', font_size='20sp')
-        title_layout.add_widget(title_screen)
-
-        # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowSimplePopup,
-                                              popup_title='Добавление записи "Базовая единица"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных',
-                                              ui=self,
-                                              popup_title='Импорт данных таблицы "Базовая единица"'))
-
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
@@ -91,6 +76,21 @@ class BaseUnitUI:
                                                    text='Удалить',
                                                    id_value=str(base_unit.id),
                                                    ui=self))
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Базовые единицы', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
+        # Кнопки управления
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowSimplePopup,
+                                              popup_title='Добавление записи "Базовая единица"'))
+        button_layout.add_widget(ImportButton(text='Импорт данных',
+                                              ui=self,
+                                              popup_title='Импорт данных таблицы "Базовые единицы"'))
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

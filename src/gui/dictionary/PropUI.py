@@ -39,21 +39,6 @@ class PropUI:
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
 
-        # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_screen = Label(text='Наименования свойств', font_size='20sp')
-        title_layout.add_widget(title_screen)
-
-        # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowSimplePopup,
-                                              popup_title='Добавление записи "Свойство материала"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных',
-                                              ui=self,
-                                              popup_title='Импорт данных таблицы "Свойство материала"'))
-
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
@@ -81,6 +66,21 @@ class PropUI:
                                                    id_value=str(prop.id),
                                                    ui=self))
         data_scroll.add_widget(data_layout)
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Наименования свойств', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
+        # Кнопки управления
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowSimplePopup,
+                                              popup_title='Добавление записи "Свойство"'))
+        button_layout.add_widget(ImportButton(text='Импорт данных',
+                                              ui=self,
+                                              popup_title='Импорт данных таблицы "Свойства"'))
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

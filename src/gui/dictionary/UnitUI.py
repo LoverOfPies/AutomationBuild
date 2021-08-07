@@ -14,7 +14,6 @@ from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
-from src.gui.modal.FileChoosePopup import FileChoosePopup
 
 
 class UnitUI:
@@ -38,21 +37,6 @@ class UnitUI:
         main_anchor = AnchorLayout()
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
-
-        # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_screen = Label(text='Единицы измерения', font_size='20sp')
-        title_layout.add_widget(title_screen)
-
-        # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowSimplePopup,
-                                              popup_title='Добавление записи "Единица измерения"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных',
-                                              ui=self,
-                                              popup_title='Импорт данных таблицы "Единица измерения"'))
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
@@ -81,6 +65,21 @@ class UnitUI:
                                                    id_value=str(base_unit.id),
                                                    ui=self))
         data_scroll.add_widget(data_layout)
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Единицы измерения', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
+        # Кнопки управления
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowSimplePopup,
+                                              popup_title='Добавление записи "Единица измерения"'))
+        button_layout.add_widget(ImportButton(text='Импорт данных',
+                                              ui=self,
+                                              popup_title='Импорт данных таблицы "Единицы измерения"'))
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

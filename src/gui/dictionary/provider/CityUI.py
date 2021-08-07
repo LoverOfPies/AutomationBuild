@@ -37,21 +37,6 @@ class CityUI:
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
         main_anchor.add_widget(bl)
 
-        # Фильтр
-        # search_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 15])
-        # search_layout.add_widget(Label(text='Фильтр'))
-        # id_input = TextInput(hint_text='id', multiline=False)
-        # name_input = TextInput(hint_text='Наименование', multiline=False)
-        # search_button = Button(text='Поиск')
-        # search_layout.add_widget(id_input)
-        # search_layout.add_widget(name_input)
-        # search_layout.add_widget(search_button)
-
-        # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowCityPopup,
-                                              popup_title='Добавление записи "Город"'))
-
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
         data_layout = Builder.load_string('''GridLayout:
@@ -66,24 +51,40 @@ class CityUI:
         data_layout.add_widget(Label(text='', height=dp(30)))
         cities = self.model_class.select()
         for city in cities:
-            data_layout.add_widget(SelectableButton(text=str(city.name), height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
+                                                    text=str(city.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(city.id),
                                                     field='name'
                                                     ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(city.id), ui=self))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(city.id),
+                                                   ui=self
+                                                   ))
         data_scroll.add_widget(data_layout)
+
+        # Заголовок формы
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_screen = Label(text='Города', font_size='20sp')
+        title_layout.add_widget(title_screen)
+
+        # Кнопки управления
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowCityPopup,
+                                              popup_title='Добавление записи "Город"'))
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
+        bl.add_widget(title_layout)
         bl.add_widget(back_layout)
         bl.add_widget(data_scroll)
-        # bl.add_widget(search_layout)
         bl.add_widget(button_layout)
 
         return main_anchor
