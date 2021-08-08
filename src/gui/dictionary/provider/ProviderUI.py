@@ -62,7 +62,7 @@ class ProviderUI:
         # providers = self.model_class.select().where(Provider.city == city)
         providers = self.model_class.select()
         for provider in providers:
-            data_layout.add_widget(SelectableButton(height=dp(30), size_hint_y=None,
+            data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(provider.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,

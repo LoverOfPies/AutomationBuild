@@ -7,12 +7,9 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.Material import Material
-from src.db.models.Product import Product
 from src.db.models.Prop import Prop
 from src.db.models.PropMaterial import PropMaterial
-from src.db.models.Provider import Provider
 from src.db.models.Unit import Unit
-from src.gui.add_dictionary.AddRowProductPopup import AddRowProductPopup
 from src.gui.add_dictionary.AddRowPropMaterialPopup import AddRowPropMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -64,7 +61,7 @@ class PropMaterialUI:
         material = Material.select().where(Material.name == self.filter_name)
         propMaterials = PropMaterial.select().where(PropMaterial.material == material)
         for propMaterial in propMaterials:
-            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(propMaterial.amount),
                                                     popup_title="Изменить количество",
                                                     class_popup=ChangeTextAttributePopup,

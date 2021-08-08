@@ -61,27 +61,31 @@ class ProductUI:
         provider = Provider.select().where(Provider.name == self.filter_name)
         products = Product.select().where(Product.provider == provider)
         for product in products:
-            data_layout.add_widget(SelectableButton(text=str(product.price), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
+                                                    text=str(product.price),
                                                     popup_title="Изменить цену",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(product.id),
                                                     field='price', is_double=False
                                                     ))
-            data_layout.add_widget(SelectableButton(text=str(product.amount_for_one), size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
+                                                    text=str(product.amount_for_one),
                                                     popup_title="Изменить количество за 1 шт",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
                                                     id_value=str(product.id),
                                                     field='amount_for_one', is_double=False
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(product.provider.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(product.provider.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Provider,
                                                          id_value=str(product.id),
                                                          field='provider', modal_title='Поставщики'
                                                          ))
-            data_layout.add_widget(SelectableModalButton(text=str(product.material.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(product.material.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Material,
                                                          id_value=str(product.id),

@@ -53,7 +53,7 @@ class SubgroupUI:
         data_layout.add_widget(Label(text='', height=dp(30)))
         subgroups = self.model_class.select()
         for subgroup in subgroups:
-            data_layout.add_widget(SelectableButton(size_hint_y=None, height=dp(30),
+            data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(subgroup.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
