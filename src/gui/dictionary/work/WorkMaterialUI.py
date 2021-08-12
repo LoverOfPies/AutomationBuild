@@ -6,10 +6,10 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.BaseUnit import BaseUnit
-from src.db.models.WorkTechnology import WorkTechnology
-from src.db.models.Work import Work
-from src.gui.add_dictionary.AddRowWorkPopup import AddRowWorkPopup
+from src.db.models.material.Material import Material
+from src.db.models.work.Work import Work
+from src.db.models.work.WorkMaterial import WorkMaterial
+from src.gui.add_dictionary.AddRowWorkMaterialPopup import AddRowWorkMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -19,10 +19,10 @@ from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
 
 
-class WorkUI:
-    screen_name = 'work_screen'
+class WorkMaterialUI:
+    screen_name = 'workmaterial_screen'
     parent_screen = 'dictionary_screen'
-    model_class = Work
+    model_class = WorkMaterial
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):
@@ -49,39 +49,39 @@ class WorkUI:
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='Количество материала', height=dp(30)))
         data_layout.add_widget(Label(text='Базовая единица', height=dp(30)))
         data_layout.add_widget(Label(text='Технология', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        works = self.model_class.select()
-        for work in works:
-            data_layout.add_widget(SelectableButton(text=str(work.name), size_hint_y=None, height=dp(30),
+        workmaterials = self.model_class.select()
+        for workmaterial in workmaterials:
+            data_layout.add_widget(SelectableButton(text=str(workmaterial.amount), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
-                                                    id_value=str(work.id),
-                                                    field='name'
+                                                    id_value=str(workmaterial.id),
+                                                    field='amount', is_double=False
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(work.baseunit.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(text=str(workmaterial.material.name), height=dp(30),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=BaseUnit,
-                                                         id_value=str(work.id),
-                                                         field='baseunit', modal_title='Базовые единицы'
+                                                         dict_class=self.model_class, owner_class=Material,
+                                                         id_value=str(workmaterial.id),
+                                                         field='material', modal_title='Материалы'
                                                          ))
-            data_layout.add_widget(SelectableModalButton(text=str(work.technology.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(text=str(workmaterial.work.name), height=dp(30),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=WorkTechnology,
-                                                         id_value=str(work.id),
-                                                         field='technology', modal_title='Технологии'
+                                                         dict_class=self.model_class, owner_class=Work,
+                                                         id_value=str(workmaterial.id),
+                                                         field='work', modal_title='Работы'
                                                          ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(work.id), ui=self))
+                                                   id_value=str(workmaterial.id), ui=self))
         data_scroll.add_widget(data_layout)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowWorkPopup,
-                                              popup_title='Добавление записи "Работа"'))
+        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowWorkMaterialPopup,
+                                              popup_title='Добавление записи "Материал для работы"'))
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))

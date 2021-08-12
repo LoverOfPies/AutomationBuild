@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Category import Category
+from src.db.models.material.MaterialCategory import MaterialCategory
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -18,7 +18,7 @@ from src.gui.custom_uix.SelectableButton import SelectableButton
 class CategoryUI:
     screen_name = 'category_screen'
     parent_screen = 'material_screen'
-    model_class = Category
+    model_class = MaterialCategory
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):

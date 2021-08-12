@@ -1,7 +1,7 @@
 from peewee import CharField, ForeignKeyField
 
 from src.db.models.BaseModel import BaseModel
-from src.db.models.City import City
+from src.db.models.provider.City import City
 
 
 # Поставщик

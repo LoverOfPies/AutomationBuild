@@ -6,8 +6,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Group import Group
-from src.db.models.Subgroup import Subgroup
+from src.db.models.material.MaterialGroup import MaterialGroup
+from src.db.models.material.MaterialSubgroup import Subgroup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -64,7 +64,7 @@ class SubgroupUI:
             data_layout.add_widget(SelectableModalButton(height=dp(30),
                                                          text=str(subgroup.group.name),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Group,
+                                                         dict_class=self.model_class, owner_class=MaterialGroup,
                                                          id_value=str(subgroup.id),
                                                          field='group', modal_title='Группы'
                                                          ))

@@ -9,7 +9,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from src.db.DbUtils import add_row
-from src.db.models.Category import Category
+from src.db.models.material.MaterialCategory import MaterialCategory
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
 
@@ -19,7 +19,7 @@ class AddRowGroupPopup(Popup):
 
     def add_value(self, obj):
         self.dismiss()
-        category = Category.select().where(Category.name == self.category_input.text)
+        category = MaterialCategory.select().where(MaterialCategory.name == self.category_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
              'category_id': category}
@@ -40,8 +40,8 @@ class AddRowGroupPopup(Popup):
 
         self.name_input = TextInput()
         self.category_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
-                                                modal_popup=ModalPopup, modal_title='Категории',
-                                                owner_class=Category)
+                                                    modal_popup=ModalPopup, modal_title='Категории',
+                                                    owner_class=MaterialCategory)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

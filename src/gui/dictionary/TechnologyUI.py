@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.WorkTechnology import WorkTechnology
+from src.db.models.work.WorkTechnology import WorkTechnology
 from src.gui.add_dictionary.AddRowTechnologyPopup import AddRowTechnologyPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup

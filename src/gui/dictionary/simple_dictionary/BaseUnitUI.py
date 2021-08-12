@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.BaseUnit import BaseUnit
+from src.db.models.base.BaseUnit import BaseUnit
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -14,7 +14,6 @@ from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
-from src.gui.modal.FileChoosePopup import FileChoosePopup
 
 
 class BaseUnitUI:

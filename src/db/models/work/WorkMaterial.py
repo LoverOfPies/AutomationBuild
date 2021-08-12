@@ -1,8 +1,8 @@
 from peewee import DoubleField, ForeignKeyField
 
 from src.db.models.BaseModel import BaseModel
-from src.db.models.Material import Material
-from src.db.models.Work import Work
+from src.db.models.material.Material import Material
+from src.db.models.work.Work import Work
 
 
 # Материал для работы
@@ -13,4 +13,4 @@ class WorkMaterial(BaseModel):
     work = ForeignKeyField(Work, backref='work_materials')              # работа
 
     class Meta:
-        db_table = "ab_workmaterial"
+        db_table = "ab_work_material"

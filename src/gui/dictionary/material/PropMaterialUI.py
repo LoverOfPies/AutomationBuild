@@ -6,10 +6,10 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Material import Material
-from src.db.models.Prop import Prop
-from src.db.models.PropMaterial import PropMaterial
-from src.db.models.Unit import Unit
+from src.db.models.material.Material import Material
+from src.db.models.base.Property import Property
+from src.db.models.material.MaterialProperty import MaterialProperty
+from src.db.models.base.Unit import Unit
 from src.gui.add_dictionary.AddRowPropMaterialPopup import AddRowPropMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -23,7 +23,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class PropMaterialUI:
     screen_name = 'propmaterial_screen'
     parent_screen = 'material_screen'
-    model_class = PropMaterial
+    model_class = MaterialProperty
     screen = Screen(name=screen_name)
     filter_name = ''
 
@@ -59,7 +59,7 @@ class PropMaterialUI:
         data_layout.add_widget(Label(text='Единица измерения', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
         material = Material.select().where(Material.name == self.filter_name)
-        propMaterials = PropMaterial.select().where(PropMaterial.material == material)
+        propMaterials = MaterialProperty.select().where(MaterialProperty.material == material)
         for propMaterial in propMaterials:
             data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(propMaterial.amount),
@@ -72,7 +72,7 @@ class PropMaterialUI:
             data_layout.add_widget(SelectableModalButton(height=dp(30),
                                                          text=str(propMaterial.prop.name),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Prop,
+                                                         dict_class=self.model_class, owner_class=Property,
                                                          id_value=str(propMaterial.id),
                                                          field='prop', modal_title='Свойства'
                                                          ))

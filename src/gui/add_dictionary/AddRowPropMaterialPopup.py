@@ -8,9 +8,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 
 from src.db.DbUtils import add_row
-from src.db.models.Material import Material
-from src.db.models.Prop import Prop
-from src.db.models.Unit import Unit
+from src.db.models.material.Material import Material
+from src.db.models.base.Property import Property
+from src.db.models.base.Unit import Unit
 from src.gui.custom_uix.DoubleInput import DoubleInput
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
@@ -22,7 +22,7 @@ class AddRowPropMaterialPopup(Popup):
     def add_value(self, obj):
         self.dismiss()
         material = Material.select().where(Material.name == self.ui_class.filter_name)
-        prop = Prop.select().where(Prop.name == self.prop_input.text)
+        prop = Property.select().where(Property.name == self.prop_input.text)
         unit = Unit.select().where(Unit.name == self.unit_input.text)
         model_obj = [
             {'amount': str(self.amount_input.text),
@@ -50,7 +50,7 @@ class AddRowPropMaterialPopup(Popup):
                                                 change_flag=False,
                                                 modal_popup=ModalPopup,
                                                 modal_title='Свойства',
-                                                owner_class=Prop)
+                                                owner_class=Property)
         self.unit_input = SelectableModalButton(size_hint_y=None, height=dp(30),
                                                 text='',
                                                 change_flag=False,

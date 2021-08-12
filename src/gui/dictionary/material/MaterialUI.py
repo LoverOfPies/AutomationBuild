@@ -7,9 +7,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Material import Material
-from src.db.models.Subgroup import Subgroup
-from src.db.models.Unit import Unit
+from src.db.models.material.Material import Material
+from src.db.models.base.Unit import Unit
 from src.gui.add_dictionary.AddRowMaterialPopup import AddRowMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -22,7 +21,6 @@ from src.gui.dictionary.material.CategoryUI import CategoryUI
 from src.gui.dictionary.material.GroupUI import GroupUI
 from src.gui.dictionary.material.PropMaterialUI import PropMaterialUI
 from src.gui.dictionary.material.SubgroupUI import SubgroupUI
-from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 

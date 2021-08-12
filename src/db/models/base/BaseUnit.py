@@ -8,4 +8,4 @@ class BaseUnit(BaseModel):
     name = CharField(unique=True)
 
     class Meta:
-        db_table = "ab_baseunit"
+        db_table = "ab_base_unit"

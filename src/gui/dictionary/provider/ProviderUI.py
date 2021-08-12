@@ -7,12 +7,11 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.City import City
-from src.db.models.Provider import Provider
+from src.db.models.provider.City import City
+from src.db.models.provider.Provider import Provider
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton

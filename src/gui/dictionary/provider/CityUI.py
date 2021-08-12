@@ -12,7 +12,7 @@ from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
-from src.db.models.City import City
+from src.db.models.provider.City import City
 
 
 class CityUI:

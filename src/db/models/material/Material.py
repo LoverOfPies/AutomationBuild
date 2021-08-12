@@ -2,9 +2,8 @@ from peewee import CharField, ForeignKeyField
 
 
 from src.db.models.BaseModel import BaseModel
-from src.db.models.Group import Group
-from src.db.models.Subgroup import Subgroup
-from src.db.models.Unit import Unit
+from src.db.models.material.MaterialSubgroup import Subgroup
+from src.db.models.base.Unit import Unit
 
 
 # Материал

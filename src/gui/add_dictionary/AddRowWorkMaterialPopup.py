@@ -8,8 +8,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 
 from src.db.DbUtils import add_row
-from src.db.models.Material import Material
-from src.db.models.Work import Work
+from src.db.models.material.Material import Material
+from src.db.models.work.Work import Work
 from src.gui.custom_uix.DoubleInput import DoubleInput
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup

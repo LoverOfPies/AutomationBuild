@@ -1,5 +1,4 @@
 # Изменить запись в бд
-from src.db.models.PropMaterial import PropMaterial
 
 
 def change_attribute(data):

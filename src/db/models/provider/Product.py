@@ -1,8 +1,8 @@
 from peewee import ForeignKeyField, DoubleField
 
 from src.db.models.BaseModel import BaseModel
-from src.db.models.Material import Material
-from src.db.models.Provider import Provider
+from src.db.models.material.Material import Material
+from src.db.models.provider.Provider import Provider
 
 
 # Товар

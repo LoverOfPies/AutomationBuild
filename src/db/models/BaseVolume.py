@@ -1,7 +1,7 @@
 from peewee import CharField, ForeignKeyField
 
 from src.db.models.BaseModel import BaseModel
-from src.db.models.BaseUnit import BaseUnit
+from src.db.models.base.BaseUnit import BaseUnit
 from src.db.models.Project import Project
 
 
@@ -12,4 +12,4 @@ class BaseVolume(BaseModel):
     base_unit = ForeignKeyField(BaseUnit, backref='base_volumes')
 
     class Meta:
-        db_table = "ab_basevolume"
+        db_table = "ab_base_volume"

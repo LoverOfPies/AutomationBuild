@@ -4,8 +4,8 @@ from src.db.models.BaseModel import BaseModel
 
 
 # Свойства для материалов (длина, ширина и т.д.)
-class Prop(BaseModel):
+class Property(BaseModel):
     name = CharField(unique=True)
 
     class Meta:
-        db_table = "ab_prop"
+        db_table = "ab_property"

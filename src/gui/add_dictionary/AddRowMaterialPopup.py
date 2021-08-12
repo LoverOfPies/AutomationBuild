@@ -9,8 +9,8 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 
 from src.db.DbUtils import add_row
-from src.db.models.Subgroup import Subgroup
-from src.db.models.Unit import Unit
+from src.db.models.material.MaterialSubgroup import Subgroup
+from src.db.models.base.Unit import Unit
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
 

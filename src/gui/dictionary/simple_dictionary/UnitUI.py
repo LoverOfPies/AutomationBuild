@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Unit import Unit
+from src.db.models.base.Unit import Unit
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup

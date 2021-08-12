@@ -6,8 +6,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Category import Category
-from src.db.models.Group import Group
+from src.db.models.material.MaterialCategory import MaterialCategory
+from src.db.models.material.MaterialGroup import MaterialGroup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -21,7 +21,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class GroupUI:
     screen_name = 'group_screen'
     parent_screen = 'material_screen'
-    model_class = Group
+    model_class = MaterialGroup
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):
@@ -64,7 +64,7 @@ class GroupUI:
             data_layout.add_widget(SelectableModalButton(height=dp(30),
                                                          text=str(group.category.name),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Category,
+                                                         dict_class=self.model_class, owner_class=MaterialCategory,
                                                          id_value=str(group.id),
                                                          field='category', modal_title='Категории'
                                                          ))
