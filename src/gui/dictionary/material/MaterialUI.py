@@ -23,12 +23,24 @@ from src.gui.dictionary.material.MaterialPropertyUI import MaterialPropertyUI
 from src.gui.dictionary.material.MaterialSubgroupUI import MaterialSubgroupUI
 from src.gui.modal.ModalPopup import ModalPopup
 
+from src.gui.modal.ChainedFilterPopup import ChainedFilterPopup
+from src.db.models.material.MaterialCategory import MaterialCategory
+from src.db.models.material.MaterialGroup import MaterialGroup
+from src.db.models.material.MaterialSubgroup import MaterialSubgroup
+
 
 class MaterialUI:
     screen_name = 'material_screen'
     parent_screen = 'dictionary_screen'
     model_class = Material
     screen = Screen(name=screen_name)
+
+    items_list = None
+    filter_flag = False
+    material_category = 'Не выбранно'
+    material_group = 'Не выбранно'
+    subgroup = 'Не выбранно'
+    selection_chain = []
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -59,8 +71,13 @@ class MaterialUI:
         data_layout.add_widget(Label(text='Единицы измерения', height=dp(30)))
         data_layout.add_widget(Label(text='Свойства материала', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        materials = self.model_class.select()
-        for material in materials:
+        
+        print(self.filter_flag)
+
+        if not self.filter_flag:
+            self.items_list = self.model_class.select()
+        
+        for material in self.items_list:
             data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(material.name),
                                                     popup_title="Изменить наименование",
@@ -117,7 +134,16 @@ class MaterialUI:
                                                     screen_name=MaterialCategoryUI.screen_name,
                                                     screen_manager=self.sm))
         category_layout.add_widget(Label(text='Категория: '))
-        category_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр категории
+        # category_layout.add_widget(Button(text='Заглушка'))
+        category_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                    text=self.material_category,
+                                    dict_class=MaterialGroup,
+                                    owner_class=MaterialCategory,
+                                    field='material_category',
+                                    modal_title='Фильр категории',
+                                    ui=self,
+        ))
 
         # Группа
         group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -125,7 +151,16 @@ class MaterialUI:
                                                  screen_name=MaterialGroupUI.screen_name,
                                                  screen_manager=self.sm))
         group_layout.add_widget(Label(text='Группа: '))
-        group_layout.add_widget(Button(text='Заглушка'))
+        # group_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр группы
+        group_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                    text=self.material_group,
+                                    dict_class=MaterialSubgroup,
+                                    owner_class=MaterialGroup,
+                                    field='material_group',
+                                    modal_title='Фильр группы',
+                                    ui=self,
+        ))
 
         # Подгруппа
         subgroup_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -133,7 +168,16 @@ class MaterialUI:
                                                     screen_name=MaterialSubgroupUI.screen_name,
                                                     screen_manager=self.sm))
         subgroup_layout.add_widget(Label(text='Подгруппа: '))
-        subgroup_layout.add_widget(Button(text='Заглушка'))
+        # subgroup_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр подгруппы
+        subgroup_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                    text=self.subgroup,
+                                    dict_class=Material,
+                                    owner_class=MaterialSubgroup,
+                                    field='subgroup',
+                                    modal_title='Фильр группы',
+                                    ui=self,
+        ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)
