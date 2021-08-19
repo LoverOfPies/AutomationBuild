@@ -26,7 +26,7 @@ class AddRowMaterialPropertyPopup(Popup):
         unit = Unit.select().where(Unit.name == self.unit_input.text)
         model_obj = [
             {'amount': str(self.amount_input.text),
-             'material_id': material,
+             'material': material,
              'prop': prop,
              'unit': unit}
         ]

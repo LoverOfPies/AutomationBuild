@@ -1,4 +1,5 @@
 # Изменить запись в бд
+from peewee import IntegrityError
 
 
 def change_attribute(data):
@@ -20,7 +21,10 @@ def delete_row(data):
     model_class = data.get('model_class')
     id_value = data.get('id_value')
     obj = model_class.get((model_class.id == id_value))
-    obj.delete_instance()
+    try:
+        obj.delete_instance()
+    except IntegrityError:
+        return True
 
 
 # Добавить запись в бд
@@ -53,6 +57,6 @@ def check_value(value, model_class):
     # Проверка уникальности наименования
     try:
         result = model_class.get_or_none(name=value[0].get('name'))
-    except:
+    except AttributeError:
         return True
     return True if result is None else False
