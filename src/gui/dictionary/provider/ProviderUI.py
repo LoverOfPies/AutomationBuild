@@ -20,6 +20,7 @@ from src.gui.add_dictionary.provider.AddProviderPopup import AddRowProviderPopup
 from src.gui.dictionary.provider.CityUI import CityUI
 from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
+from src.gui.modal.FilterModal import FilterModal
 
 
 class ProviderUI:
@@ -28,6 +29,9 @@ class ProviderUI:
     model_class = Provider
     screen = Screen(name=screen_name)
     citydrop_button = Button(text='Все')
+    providers = None
+    filter_flag = False
+    filter_btn_text = 'Не выбранно'
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -45,22 +49,25 @@ class ProviderUI:
 
         # Вывод данных
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
-        data_layout = Builder.load_string('''GridLayout:
-        size:(root.width, root.height)
-        size_hint_x: 1
-        size_hint_y: None
-        cols: 4
-        height: self.minimum_height
-        row_default_height: 50
-        row_force_default: True''')
+        data_layout = Builder.load_string(
+            '''GridLayout:
+            size:(root.width, root.height)
+            size_hint_x: 1
+            size_hint_y: None
+            cols: 4
+            height: self.minimum_height
+            row_default_height: 50
+            row_force_default: True'''
+        )
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
         data_layout.add_widget(Label(text='Город', height=dp(30)))
         data_layout.add_widget(Label(text='Товары поставщика', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        # city = City.select().where(City.name == 'Рыбинск')
-        # providers = self.model_class.select().where(Provider.city == city)
-        providers = self.model_class.select()
-        for provider in providers:
+
+        if not self.filter_flag:
+            self.providers = self.model_class.select()
+
+        for provider in self.providers:
             data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(provider.name),
                                                     popup_title="Изменить наименование",
@@ -70,17 +77,20 @@ class ProviderUI:
                                                     field='name'
                                                     ))
             data_layout.add_widget(SelectableModalButton(height=dp(30),
-                                                         text=str(provider.city.name),
+                                                         text=str(
+                                                             provider.city.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=City,
-                                                         id_value=str(provider.id),
+                                                         id_value=str(
+                                                             provider.id),
                                                          field='city', modal_title='Города'
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Товары ' + provider.name,
                                                           screen_manager=self.sm,
                                                           filter_ui=ProductUI,
-                                                          filter_name=str(provider.name)
+                                                          filter_name=str(
+                                                              provider.name)
                                                           ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',
@@ -90,12 +100,14 @@ class ProviderUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                 1, .3], padding=[0, 30])
         title_label = Label(text='Поставщики', font_size='20sp')
         title_layout.add_widget(title_label)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                  1, .4], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить',
                                               ui=self,
                                               popup=AddRowProviderPopup,
@@ -104,7 +116,8 @@ class ProviderUI:
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        back_layout.add_widget(OpenScreenButton(
+            text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
         # Фильтр с выпадающим списком
         # dropdown = FilterDropDown(dict_class=City, main_button=self.citydrop_button)
@@ -115,9 +128,20 @@ class ProviderUI:
 
         # Справочник городов
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        city_layout.add_widget(OpenScreenButton(text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
+        city_layout.add_widget(OpenScreenButton(
+            text='Города', screen_name=CityUI.screen_name, screen_manager=self.sm))
         city_layout.add_widget(Label(text='Город: '))
-        city_layout.add_widget(Button(text='Заглушка'))
+
+        # Фильтр города
+        # city_layout.add_widget(Button(text='Заглушка'))
+        city_layout.add_widget(FilterModal(height=dp(30),
+                                    text=self.filter_btn_text,
+                                    dict_class=self.model_class,
+                                    owner_class=City,
+                                    field='city',
+                                    modal_title='Фильр города',
+                                    ui=self,
+                                    ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)
