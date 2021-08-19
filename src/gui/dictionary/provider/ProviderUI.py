@@ -20,7 +20,7 @@ from src.gui.add_dictionary.provider.AddProviderPopup import AddRowProviderPopup
 from src.gui.dictionary.provider.CityUI import CityUI
 from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup
-from src.gui.modal.FilterModal import FilterModal
+from src.gui.modal.FilterPopup import FilterPopup
 
 
 class ProviderUI:
@@ -125,12 +125,10 @@ class ProviderUI:
         city_layout.add_widget(Label(text='Город: '))
 
         # Фильтр города
-        # city_layout.add_widget(Button(text='Заглушка'))
-        city_layout.add_widget(FilterModal(height=dp(30),
+        city_layout.add_widget(FilterPopup(height=dp(30),
                                     text=self.filter_btn_text,
                                     dict_class=self.model_class,
                                     owner_class=City,
-                                    field='city',
                                     modal_title='Фильр города',
                                     ui=self,
                                     ))

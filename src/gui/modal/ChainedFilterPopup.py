@@ -19,11 +19,20 @@ class SelectRowButton(Button):
     field = StringProperty()
 
     def on_press(self):
-        city = self.owner_class.select().where(self.owner_class.name == self.name_row)
-        providers = self.dict_class.select().where(self.dict_class.city == city)
-        self.ui_class.providers = providers
-        self.ui_class.filter_flag = True
-        self.ui_class.filter_btn_text = self.name_row
+        self.ui_class.selection_chain.append(getattr(self.dict_class, self.field))
+        items = self.owner_class.select().where(self.owner_class.name == self.name_row)
+
+        for selection in self.ui_class.selection_chain:
+            filtered_list = self.dict_class.select().where(selection == items)
+
+        for item in filtered_list:
+            print(item)
+        print('--', len(self.ui_class.selection_chain),'--')
+
+        self.ui_class.items_list = filtered_list
+        if len(self.ui_class.selection_chain) > 2:
+            self.ui_class.filter_flag = True
+        setattr(self.ui_class, self.field, self.name_row)
         self.popup.dismiss()
         self.ui_class.update_screen()
 
@@ -33,7 +42,8 @@ class ModalPopup(Popup):
     button_obj = ObjectProperty()
     dict_class = ObjectProperty()
     owner_class = ObjectProperty()
-    field = StringProperty()
+    field = ObjectProperty()
+    modal_title = StringProperty()
 
     def __init__(self, button_obj, ui_class, dict_class, owner_class, field, modal_title, **kwargs):
         super(ModalPopup, self).__init__(**kwargs)
@@ -61,8 +71,7 @@ class ModalPopup(Popup):
             data_layout.add_widget(Label(text=str(row.name), size_hint_y=None, height=dp(30)))
             data_layout.add_widget(SelectRowButton(text='Выбрать', height=dp(30), popup=self,
                                                    name_row=row.name, button_obj=button_obj, ui_class=ui_class,
-                                                   dict_class=dict_class, owner_class=owner_class,
-                                                   field=field))
+                                                   dict_class=dict_class, owner_class=owner_class, field=field))
         data_scroll.add_widget(data_layout)
         main_layout.add_widget(data_scroll)
 
@@ -75,21 +84,21 @@ class ModalPopup(Popup):
     
     def reset_filter(modal, self):
         modal.ui_class.filter_flag = False
-        modal.ui_class.filter_btn_text = 'Не выбранно'
+        setattr(modal.ui_class, self.field, 'Не выбрано')
         modal.ui_class.update_screen()
         modal.dismiss()
-            
 
 # Кнопка вызова фильтра
-class FilterModal(Button):
+class ChainedFilterPopup(Button):
     ui = ObjectProperty()
     modal_title = StringProperty()
     dict_class = ObjectProperty()
     owner_class = ObjectProperty()
     field = StringProperty()
+
+
     modal_popup = ModalPopup
 
     def on_press(self):
         popup = self.modal_popup(self, self.ui, self.dict_class, self.owner_class, self.field, self.modal_title)
         popup.open()
-
