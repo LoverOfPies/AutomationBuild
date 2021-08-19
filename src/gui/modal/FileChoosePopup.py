@@ -34,11 +34,11 @@ class FileChoosePopup(Popup):
 
     def select_file(self, filename):
         if self.ui.model_class == BaseUnit:
-            import_single_row(filename[0], self.ui)
+            import_single_row(filename[0], self.ui, 'БазовыеЕдиницы')
         if self.ui.model_class == Prop:
-            import_single_row(filename[0], self.ui)
+            import_single_row(filename[0], self.ui, 'СвойстваМатериалов')
         if self.ui.model_class == Unit:
-            import_single_row(filename[0], self.ui)
+            import_single_row(filename[0], self.ui, 'ЕдиницыИзмерения')
         self.dismiss()
 
     def __init__(self, **kwargs):

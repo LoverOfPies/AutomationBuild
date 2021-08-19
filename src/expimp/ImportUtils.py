@@ -1,11 +1,16 @@
 from openpyxl import load_workbook
 
 from src.db.DbUtils import add_multirow
+from src.gui.custom_uix.ErrorPopup import ErrorPopup
 
 
-def import_single_row(filename, ui):
+def import_single_row(filename, ui, list_name):
     wb = load_workbook(filename)
-    sheet = wb.get_sheet_by_name('Лист1')
+    try:
+        sheet = wb.get_sheet_by_name(list_name)
+    except KeyError:
+        ErrorPopup(message='Неправильный файл').open()
+        return
     values = []
     for cell in sheet['A']:
         if cell.row == 1:
