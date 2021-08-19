@@ -22,3 +22,15 @@ def import_single_row(filename, ui, list_name):
     ])
     add_multirow(data)
     ui.update_screen()
+
+
+def import_material(filename, ui, list_name):
+    wb = load_workbook(filename)
+    try:
+        sheet = wb.get_sheet_by_name(list_name)
+    except KeyError:
+        ErrorPopup(message='Неправильный файл').open()
+        return
+    for cell in sheet['A']:
+        if cell.row == 1:
+            continue

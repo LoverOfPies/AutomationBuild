@@ -13,6 +13,7 @@ from src.gui.add_dictionary.material.AddRowMaterialPopup import AddRowMaterialPo
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
+from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
@@ -122,7 +123,9 @@ class MaterialUI:
                                               ui=self,
                                               popup=AddRowMaterialPopup,
                                               popup_title='Добавление записи "Материал"'))
-        button_layout.add_widget(Button(text='Импорт данных'))
+        button_layout.add_widget(ImportButton(text='Импорт данных',
+                                              ui=self,
+                                              popup_title='Импорт данных таблицы "Материалы"'))
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

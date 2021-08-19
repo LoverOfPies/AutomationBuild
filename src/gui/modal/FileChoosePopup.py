@@ -5,7 +5,8 @@ from kivy.uix.popup import Popup
 from src.db.models.base.BaseUnit import BaseUnit
 from src.db.models.base.Prop import Prop
 from src.db.models.base.Unit import Unit
-from src.expimp.ImportUtils import import_single_row
+from src.db.models.material.Material import Material
+from src.expimp.ImportUtils import import_single_row, import_material
 
 Builder.load_string("""
 <FileChoosePopup>:
@@ -39,6 +40,8 @@ class FileChoosePopup(Popup):
             import_single_row(filename[0], self.ui, 'СвойстваМатериалов')
         if self.ui.model_class == Unit:
             import_single_row(filename[0], self.ui, 'ЕдиницыИзмерения')
+        if self.ui.model_class == Material:
+            import_material(filename[0], self.ui, 'Материалы')
         self.dismiss()
 
     def __init__(self, **kwargs):
