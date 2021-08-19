@@ -41,7 +41,7 @@ class FileChoosePopup(Popup):
         if self.ui.model_class == Unit:
             import_single_row(filename[0], self.ui, 'ЕдиницыИзмерения')
         if self.ui.model_class == Material:
-            import_material(filename[0], self.ui, 'Материалы')
+            import_material(filename[0], 'Материалы')
         self.dismiss()
 
     def __init__(self, **kwargs):
