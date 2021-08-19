@@ -27,8 +27,8 @@ class AddRowMaterialPropertyPopup(Popup):
         model_obj = [
             {'amount': str(self.amount_input.text),
              'material_id': material,
-             'prop_id': prop,
-             'unit_id': unit}
+             'prop': prop,
+             'unit': unit}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

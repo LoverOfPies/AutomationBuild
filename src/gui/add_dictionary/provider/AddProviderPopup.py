@@ -22,7 +22,7 @@ class AddRowProviderPopup(Popup):
         city = City.select().where(City.name == self.city_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
-             'city_id': city}
+             'city': city}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

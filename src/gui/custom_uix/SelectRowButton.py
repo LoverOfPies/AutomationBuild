@@ -18,6 +18,9 @@ class SelectRowButton(Button):
     def on_press(self):
         if self.change_flag:
             owner = self.owner_class.select().where(self.owner_class.name == self.name_row)
+            if not bool(owner):
+                self.dismiss()
+                return
             data = dict([
                 ('model_class', self.dict_class),
                 ('id_value', self.id_value),

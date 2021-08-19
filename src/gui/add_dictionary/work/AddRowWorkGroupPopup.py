@@ -24,7 +24,7 @@ class AddRowWorkGroupPopup(Popup):
         work_technology = WorkTechnology.select().where(WorkTechnology.name == self.work_technology_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
-             'work_technology_id': work_technology}
+             'work_technology': work_technology}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

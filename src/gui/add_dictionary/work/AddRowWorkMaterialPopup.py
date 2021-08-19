@@ -24,8 +24,8 @@ class AddRowWorkMaterialPopup(Popup):
         work = Work.select().where(Work.name == self.ui_class.filter_name)
         model_obj = [
             {'amount': str(self.amount_input.text),
-             'material_id': material,
-             'work_id': work}
+             'material': material,
+             'work': work}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

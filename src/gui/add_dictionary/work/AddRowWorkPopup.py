@@ -28,8 +28,8 @@ class AddRowWorkPopup(Popup):
              'work_coefficient': str(self.work_coefficient_input.text),
              'client_price': str(self.client_price_input.text),
              'work_price': str(self.work_price_input.text),
-             'base_unit_id': base_unit,
-             'group_work_id': group_work}
+             'base_unit': base_unit,
+             'group_work': group_work}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

@@ -23,7 +23,7 @@ class AddRowWorkTechnologyPopup(Popup):
         work_stage = WorkStage.select().where(WorkStage.name == self.work_stage_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
-             'work_stage_id': work_stage}
+             'work_stage': work_stage}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

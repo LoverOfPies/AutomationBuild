@@ -13,8 +13,6 @@ def change_attribute(data):
         model_class.id == obj.id)
     if query.execute() == 0:
         raise Exception()
-    else:
-        return True
 
 
 # Удалить запись в бд
@@ -43,6 +41,16 @@ def add_multirow(data):
 
 
 def check_value(value, model_class):
+    # Проверка на заполненность полей
+    fields = [key for key in model_class._meta.fields]
+    fields.remove('id')
+    for field in fields:
+        if bool(value[0].get(field)):
+            continue
+        else:
+            return False
+
+    # Проверка уникальности наименования
     try:
         result = model_class.get_or_none(name=value[0].get('name'))
     except:

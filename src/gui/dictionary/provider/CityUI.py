@@ -6,8 +6,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
+from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
-from src.gui.add_dictionary.provider.AddRowCityPopup import AddRowCityPopup
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
@@ -75,7 +75,7 @@ class CityUI:
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить',
                                               ui=self,
-                                              popup=AddRowCityPopup,
+                                              popup=AddRowSimplePopup,
                                               popup_title='Добавление записи "Город"'))
 
         # Кнопка назад

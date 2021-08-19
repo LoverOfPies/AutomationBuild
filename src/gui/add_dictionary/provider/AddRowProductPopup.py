@@ -25,8 +25,8 @@ class AddRowProductPopup(Popup):
         model_obj = [
             {'price': str(self.price_input.text),
              'amount_for_one': str(self.amount_input.text),
-             'provider_id': provider,
-             'material_id': material}
+             'provider': provider,
+             'material': material}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

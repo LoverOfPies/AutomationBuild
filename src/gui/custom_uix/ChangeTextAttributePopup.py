@@ -18,6 +18,9 @@ class ChangeTextAttributePopup(Popup):
 
     # Сохранить изменение атрибута в бд
     def save_value(self):
+        if not bool(self.attribute_input.text):
+            self.dismiss()
+            return
         self.button_obj.text = self.attribute_input.text
         self.dismiss()
         data = dict([

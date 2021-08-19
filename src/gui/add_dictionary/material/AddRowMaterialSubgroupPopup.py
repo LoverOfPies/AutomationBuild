@@ -22,7 +22,7 @@ class AddRowMaterialSubgroupPopup(Popup):
         group = MaterialGroup.select().where(MaterialGroup.name == self.group_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
-             'material_group_id': group}
+             'material_group': group}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),

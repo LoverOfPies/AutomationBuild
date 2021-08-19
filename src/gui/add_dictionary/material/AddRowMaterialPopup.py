@@ -25,8 +25,8 @@ class AddRowMaterialPopup(Popup):
         model_obj = [
             {'name': str(self.name_input.text),
              'articul': str(self.articul_input.text),
-             'unit_id': unit,
-             'subgroup_id': subgroup}
+             'unit': unit,
+             'subgroup': subgroup}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),
