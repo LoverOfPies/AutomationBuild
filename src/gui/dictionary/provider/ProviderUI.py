@@ -28,7 +28,6 @@ class ProviderUI:
     parent_screen = 'dictionary_screen'
     model_class = Provider
     screen = Screen(name=screen_name)
-    citydrop_button = Button(text='Все')
     providers = None
     filter_flag = False
     filter_btn_text = 'Не выбранно'
@@ -119,13 +118,6 @@ class ProviderUI:
         back_layout.add_widget(OpenScreenButton(
             text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
-        # Фильтр с выпадающим списком
-        # dropdown = FilterDropDown(dict_class=City, main_button=self.citydrop_button)
-        # self.citydrop_button.bind(on_release=dropdown.open)
-        # dropdown_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        # dropdown_layout.add_widget(Label(text='Город: '))
-        # dropdown_layout.add_widget(self.citydrop_button)
-
         # Справочник городов
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         city_layout.add_widget(OpenScreenButton(
@@ -145,7 +137,6 @@ class ProviderUI:
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)
-        # bl.add_widget(dropdown_layout)
         bl.add_widget(city_layout)
         bl.add_widget(data_scroll)
         bl.add_widget(button_layout)
