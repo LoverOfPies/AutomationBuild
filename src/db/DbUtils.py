@@ -1,6 +1,8 @@
 # Изменить запись в бд
 from peewee import IntegrityError
 
+from src.gui.custom_uix.ErrorPopup import ErrorPopup
+
 
 def change_attribute(data):
     model_class = data.get('model_class')
@@ -22,9 +24,18 @@ def delete_row(data):
     id_value = data.get('id_value')
     obj = model_class.get((model_class.id == id_value))
     try:
+        foreign_tables = [table for table in obj._meta.model_backrefs]
+        for foreign_table in foreign_tables:
+            foreign_keys = [key for key in foreign_table._meta.refs]
+            for foreign_key in foreign_keys:
+                if foreign_key.rel_model == model_class:
+                    link_quantity = len(foreign_table.select().where(foreign_key == obj))
+                    if link_quantity > 0:
+                        ErrorPopup(message="На объект есть ссылки " + str(link_quantity)).open()
+                        return False
         obj.delete_instance()
     except IntegrityError:
-        return True
+        return False
 
 
 # Добавить запись в бд
@@ -52,6 +63,7 @@ def check_value(value, model_class):
         if bool(value[0].get(field)):
             continue
         else:
+            ErrorPopup(message="Не заполнены все поля").open()
             return False
 
     # Проверка уникальности наименования

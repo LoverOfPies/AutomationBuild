@@ -4,6 +4,9 @@ from src.db.DbUtils import change_attribute
 
 
 # Кнопка вызова модального окна изменения атрибута
+from src.gui.custom_uix.ErrorPopup import ErrorPopup
+
+
 class SelectRowButton(Button):
     button_obj = ObjectProperty()
     popup = ObjectProperty()
@@ -20,6 +23,7 @@ class SelectRowButton(Button):
             owner = self.owner_class.select().where(self.owner_class.name == self.name_row)
             if not bool(owner):
                 self.dismiss()
+                ErrorPopup(message="Поле не может быть пустым").open()
                 return
             data = dict([
                 ('model_class', self.dict_class),

@@ -9,6 +9,9 @@ from src.gui.custom_uix.DoubleInput import DoubleInput
 
 
 # Модальное окно для изменения текстового атрибута
+from src.gui.custom_uix.ErrorPopup import ErrorPopup
+
+
 class ChangeTextAttributePopup(Popup):
     button_obj = ObjectProperty()
     dict_class = ObjectProperty()
@@ -20,6 +23,7 @@ class ChangeTextAttributePopup(Popup):
     def save_value(self):
         if not bool(self.attribute_input.text):
             self.dismiss()
+            ErrorPopup(message="Поле не может быть пустым").open()
             return
         self.button_obj.text = self.attribute_input.text
         self.dismiss()

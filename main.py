@@ -6,7 +6,7 @@ Window.size = (1200, 700)
 Window.minimum_heigh, Window.minimum_width = Window.size
 Window.left = 10
 Window.top = 10
-#Window.fullscreen = True
+# Window.fullscreen = True
 
 
 if __name__ == '__main__':
