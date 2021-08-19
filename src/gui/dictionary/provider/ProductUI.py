@@ -9,7 +9,7 @@ from kivy.uix.scrollview import ScrollView
 from src.db.models.material.Material import Material
 from src.db.models.provider.Product import Product
 from src.db.models.provider.Provider import Provider
-from src.gui.add_dictionary.AddRowProductPopup import AddRowProductPopup
+from src.gui.add_dictionary.provider.AddRowProductPopup import AddRowProductPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton

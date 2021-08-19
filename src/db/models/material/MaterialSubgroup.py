@@ -5,7 +5,7 @@ from src.db.models.material.MaterialGroup import MaterialGroup
 
 
 # Подгруппа
-class Subgroup(BaseModel):
+class MaterialSubgroup(BaseModel):
     name = CharField(unique=True)
     material_group = ForeignKeyField(MaterialGroup, backref='material_subgroups')
 

@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.base.Property import Property
+from src.db.models.base.Prop import Prop
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -19,7 +19,7 @@ from src.gui.custom_uix.SelectableButton import SelectableButton
 class PropUI:
     screen_name = 'prop_screen'
     parent_screen = 'dictionary_screen'
-    model_class = Property
+    model_class = Prop
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):

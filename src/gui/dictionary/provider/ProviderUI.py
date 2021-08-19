@@ -16,7 +16,7 @@ from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
-from src.gui.add_dictionary.AddProviderPopup import AddRowProviderPopup
+from src.gui.add_dictionary.provider.AddProviderPopup import AddRowProviderPopup
 from src.gui.dictionary.provider.CityUI import CityUI
 from src.gui.dictionary.provider.ProductUI import ProductUI
 from src.gui.modal.ModalPopup import ModalPopup

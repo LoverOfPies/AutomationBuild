@@ -2,8 +2,8 @@ from kivy.core.window import Window
 
 from src.gui.MainApp import MainApp
 
-Window.minimum_height = 500
-Window.minimum_width = 1200
+Window.size = (1200, 700)
+Window.minimum_heigh, Window.minimum_width = Window.size
 #Window.fullscreen = True
 
 

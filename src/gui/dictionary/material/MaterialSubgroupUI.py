@@ -6,19 +6,22 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
+from src.db.models.material.MaterialGroup import MaterialGroup
+from src.db.models.material.MaterialSubgroup import MaterialSubgroup
 from src.gui.custom_uix.AddRowButton import AddRowButton
-from src.gui.add_dictionary.provider.AddRowCityPopup import AddRowCityPopup
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
-from src.db.models.provider.City import City
+from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
+from src.gui.add_dictionary.material.AddRowMaterialSubgroupPopup import AddRowMaterialSubgroupPopup
+from src.gui.modal.ModalPopup import ModalPopup
 
 
-class CityUI:
-    screen_name = 'city_screen'
-    parent_screen = 'provider_screen'
-    model_class = City
+class MaterialSubgroupUI:
+    screen_name = 'subgroup_screen'
+    parent_screen = 'material_screen'
+    model_class = MaterialSubgroup
     screen = Screen(name=screen_name)
 
     def __init__(self, screen_manager):
@@ -26,12 +29,10 @@ class CityUI:
         self.update_screen()
         self.sm.add_widget(self.screen)
 
-    # Обновление экрана
     def update_screen(self):
         self.screen.clear_widgets()
         self.screen.add_widget(self.main_layout())
 
-    # Получение main_layout для интерфейса
     def main_layout(self):
         main_anchor = AnchorLayout()
         bl = BoxLayout(orientation='vertical', size_hint=[.7, .9])
@@ -43,42 +44,49 @@ class CityUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 2
+        cols: 3
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
+        data_layout.add_widget(Label(text='Группа', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        cities = self.model_class.select()
-        for city in cities:
+        subgroups = self.model_class.select()
+        for subgroup in subgroups:
             data_layout.add_widget(SelectableButton(height=dp(30),
-                                                    text=str(city.name),
+                                                    text=str(subgroup.name),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
-                                                    id_value=str(city.id),
+                                                    id_value=str(subgroup.id),
                                                     field='name'
                                                     ))
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(subgroup.material_group.name),
+                                                         modal_popup=ModalPopup, change_flag=True,
+                                                         dict_class=self.model_class, owner_class=MaterialGroup,
+                                                         id_value=str(subgroup.id),
+                                                         field='material_group', modal_title='Группы'
+                                                         ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',
-                                                   id_value=str(city.id),
+                                                   id_value=str(subgroup.id),
                                                    ui=self
                                                    ))
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
         title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Города', font_size='20sp')
+        title_label = Label(text='Подгруппы материалов', font_size='20sp')
         title_layout.add_widget(title_label)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить',
                                               ui=self,
-                                              popup=AddRowCityPopup,
-                                              popup_title='Добавление записи "Город"'))
+                                              popup=AddRowMaterialSubgroupPopup,
+                                              popup_title='Добавление записи "Подгруппа материалов"'))
 
-        # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 

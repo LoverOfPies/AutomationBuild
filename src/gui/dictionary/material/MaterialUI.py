@@ -9,7 +9,7 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.Material import Material
 from src.db.models.base.Unit import Unit
-from src.gui.add_dictionary.AddRowMaterialPopup import AddRowMaterialPopup
+from src.gui.add_dictionary.material.AddRowMaterialPopup import AddRowMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -17,10 +17,10 @@ from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
-from src.gui.dictionary.material.CategoryUI import CategoryUI
-from src.gui.dictionary.material.GroupUI import GroupUI
-from src.gui.dictionary.material.PropMaterialUI import PropMaterialUI
-from src.gui.dictionary.material.SubgroupUI import SubgroupUI
+from src.gui.dictionary.material.MaterialCategoryUI import MaterialCategoryUI
+from src.gui.dictionary.material.MaterialGroupUI import MaterialGroupUI
+from src.gui.dictionary.material.MaterialPropertyUI import MaterialPropertyUI
+from src.gui.dictionary.material.MaterialSubgroupUI import MaterialSubgroupUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 
@@ -87,7 +87,7 @@ class MaterialUI:
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Свойства',
                                                           screen_manager=self.sm,
-                                                          filter_ui=PropMaterialUI,
+                                                          filter_ui=MaterialPropertyUI,
                                                           filter_name=str(material.name)
                                                           ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
@@ -114,7 +114,7 @@ class MaterialUI:
         # Категории
         category_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
         category_layout.add_widget(OpenScreenButton(text='Категории',
-                                                    screen_name=CategoryUI.screen_name,
+                                                    screen_name=MaterialCategoryUI.screen_name,
                                                     screen_manager=self.sm))
         category_layout.add_widget(Label(text='Категория: '))
         category_layout.add_widget(Button(text='Заглушка'))
@@ -122,7 +122,7 @@ class MaterialUI:
         # Группа
         group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
         group_layout.add_widget(OpenScreenButton(text='Группа',
-                                                 screen_name=GroupUI.screen_name,
+                                                 screen_name=MaterialGroupUI.screen_name,
                                                  screen_manager=self.sm))
         group_layout.add_widget(Label(text='Группа: '))
         group_layout.add_widget(Button(text='Заглушка'))
@@ -130,7 +130,7 @@ class MaterialUI:
         # Подгруппа
         subgroup_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
         subgroup_layout.add_widget(OpenScreenButton(text='Подгруппа',
-                                                    screen_name=SubgroupUI.screen_name,
+                                                    screen_name=MaterialSubgroupUI.screen_name,
                                                     screen_manager=self.sm))
         subgroup_layout.add_widget(Label(text='Подгруппа: '))
         subgroup_layout.add_widget(Button(text='Заглушка'))

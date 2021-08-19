@@ -3,7 +3,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 
 from src.db.models.base.BaseUnit import BaseUnit
-from src.db.models.base.Property import Property
+from src.db.models.base.Prop import Prop
 from src.db.models.base.Unit import Unit
 from src.expimp.ImportUtils import import_single_row
 
@@ -35,7 +35,7 @@ class FileChoosePopup(Popup):
     def select_file(self, filename):
         if self.ui.model_class == BaseUnit:
             import_single_row(filename[0], self.ui)
-        if self.ui.model_class == Property:
+        if self.ui.model_class == Prop:
             import_single_row(filename[0], self.ui)
         if self.ui.model_class == Unit:
             import_single_row(filename[0], self.ui)

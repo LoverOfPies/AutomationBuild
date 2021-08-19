@@ -7,9 +7,10 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.Material import Material
-from src.db.models.work.Work import Work
-from src.db.models.work.WorkMaterial import WorkMaterial
-from src.gui.add_dictionary.work.AddRowWorkMaterialPopup import AddRowWorkMaterialPopup
+from src.db.models.base.Prop import Prop
+from src.db.models.material.MaterialProperty import MaterialProperty
+from src.db.models.base.Unit import Unit
+from src.gui.add_dictionary.material.AddRowMaterialPropertyPopup import AddRowMaterialPropertyPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -19,10 +20,10 @@ from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
 
 
-class WorkMaterialUI:
-    screen_name = 'work_material_screen'
-    parent_screen = 'work_screen'
-    model_class = WorkMaterial
+class MaterialPropertyUI:
+    screen_name = 'material_property_screen'
+    parent_screen = 'material_screen'
+    model_class = MaterialProperty
     screen = Screen(name=screen_name)
     filter_name = ''
 
@@ -49,43 +50,59 @@ class WorkMaterialUI:
         size:(root.width, root.height)
         size_hint_x: 1
         size_hint_y: None
-        cols: 3
+        cols: 4
         height: self.minimum_height
         row_default_height: 50
         row_force_default: True''')
-        data_layout.add_widget(Label(text='Количество материала', height=dp(30)))
-        data_layout.add_widget(Label(text='Материалы', height=dp(30)))
+        data_layout.add_widget(Label(text='Количество', height=dp(30)))
+        data_layout.add_widget(Label(text='Свойство', height=dp(30)))
+        data_layout.add_widget(Label(text='Единица измерения', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        work = Work.select().where(Work.name == self.filter_name)
-        work_materials = self.model_class.select().where(self.model_class.work == work)
-        for work_material in work_materials:
-            data_layout.add_widget(SelectableButton(text=str(work_material.amount), size_hint_y=None, height=dp(30),
+        material = Material.select().where(Material.name == self.filter_name)
+        material_properties = MaterialProperty.select().where(self.model_class.material == material)
+        for materialProperty in material_properties:
+            data_layout.add_widget(SelectableButton(height=dp(30),
+                                                    text=str(materialProperty.amount),
                                                     popup_title="Изменить количество",
                                                     class_popup=ChangeTextAttributePopup,
                                                     dict_class=self.model_class,
-                                                    id_value=str(work_material.id),
+                                                    id_value=str(materialProperty.id),
                                                     field='amount', is_double=False
                                                     ))
-            data_layout.add_widget(SelectableModalButton(text=str(work_material.material.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(materialProperty.prop.name),
                                                          modal_popup=ModalPopup, change_flag=True,
-                                                         dict_class=self.model_class, owner_class=Material,
-                                                         id_value=str(work_material.id),
-                                                         field='material', modal_title='Материалы'
+                                                         dict_class=self.model_class, owner_class=Prop,
+                                                         id_value=str(materialProperty.id),
+                                                         field='prop', modal_title='Свойства'
                                                          ))
-            data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
-                                                   id_value=str(work_material.id), ui=self))
+            data_layout.add_widget(SelectableModalButton(height=dp(30),
+                                                         text=str(materialProperty.unit.name),
+                                                         modal_popup=ModalPopup, change_flag=True,
+                                                         dict_class=self.model_class, owner_class=Unit,
+                                                         id_value=str(materialProperty.id),
+                                                         field='unit', modal_title='Единицы измерения'
+                                                         ))
+            data_layout.add_widget(DeleteRowButton(height=dp(30),
+                                                   text='Удалить',
+                                                   id_value=str(materialProperty.id),
+                                                   ui=self
+                                                   ))
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
         title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Материалы для ' + self.filter_name, font_size='20sp')
+        title_label = Label(text='Свойства ' + self.filter_name, font_size='20sp')
         title_layout.add_widget(title_label)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowWorkMaterialPopup,
-                                              popup_title='Добавление записи "Материал для ' + self.filter_name + '"'))
+        button_layout.add_widget(AddRowButton(text='Добавить',
+                                              ui=self,
+                                              popup=AddRowMaterialPropertyPopup,
+                                              popup_title='Добавление записи "Свойство материала"'))
 
+        # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
