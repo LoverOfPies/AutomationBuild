@@ -40,7 +40,13 @@ class MaterialUI:
     material_category = 'Не выбранно'
     material_group = 'Не выбранно'
     subgroup = 'Не выбранно'
-    selection_chain = []
+    selection_chain = {
+                        'material_category': {'id': None, 'selection': None, 'model': MaterialCategory, 'enabled': True}, 
+                        'material_group': {'id': None, 'selection': None, 'model': MaterialGroup, 'enabled': False}, 
+                        'subgroup': {'id': None, 'selection': None, 'model': MaterialSubgroup, 'enabled': False}
+                    }
+    # selection_chain = []
+    last_selection = 'subgroup'
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -71,12 +77,10 @@ class MaterialUI:
         data_layout.add_widget(Label(text='Единицы измерения', height=dp(30)))
         data_layout.add_widget(Label(text='Свойства материала', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        
-        print(self.filter_flag)
 
         if not self.filter_flag:
             self.items_list = self.model_class.select()
-        
+
         for material in self.items_list:
             data_layout.add_widget(SelectableButton(height=dp(30),
                                                     text=str(material.name),
@@ -95,29 +99,34 @@ class MaterialUI:
                                                     field='articul'
                                                     ))
             data_layout.add_widget(SelectableModalButton(height=dp(30),
-                                                         text=str(material.unit.name),
+                                                         text=str(
+                                                             material.unit.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Unit,
-                                                         id_value=str(material.id),
+                                                         id_value=str(
+                                                             material.id),
                                                          field='unit', modal_title='Единицы измерения'
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Свойства',
                                                           screen_manager=self.sm,
                                                           filter_ui=MaterialPropertyUI,
-                                                          filter_name=str(material.name)
+                                                          filter_name=str(
+                                                              material.name)
                                                           ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),
                                                    id_value=str(material.id), ui=self))
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
+        title_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                 1, .3], padding=[0, 30])
         title_label = Label(text='Материалы', font_size='20sp')
         title_layout.add_widget(title_label)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
+        button_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                  1, .4], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить',
                                               ui=self,
                                               popup=AddRowMaterialPopup,
@@ -126,10 +135,12 @@ class MaterialUI:
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        back_layout.add_widget(OpenScreenButton(
+            text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
 
         # Категории
-        category_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        category_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                    1, .2], padding=[0, 5])
         category_layout.add_widget(OpenScreenButton(text='Категории',
                                                     screen_name=MaterialCategoryUI.screen_name,
                                                     screen_manager=self.sm))
@@ -137,16 +148,17 @@ class MaterialUI:
         # Фильтр категории
         # category_layout.add_widget(Button(text='Заглушка'))
         category_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                    text=self.material_category,
-                                    dict_class=MaterialGroup,
-                                    owner_class=MaterialCategory,
-                                    field='material_category',
-                                    modal_title='Фильр категории',
-                                    ui=self,
-        ))
+                                                      text=self.material_category,
+                                                      dict_class=MaterialGroup,
+                                                      owner_class=MaterialCategory,
+                                                      field='material_category',
+                                                      modal_title='Фильр категории',
+                                                      ui=self,
+                                                      ))
 
         # Группа
-        group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        group_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                 1, .2], padding=[0, 5])
         group_layout.add_widget(OpenScreenButton(text='Группа',
                                                  screen_name=MaterialGroupUI.screen_name,
                                                  screen_manager=self.sm))
@@ -154,16 +166,17 @@ class MaterialUI:
         # group_layout.add_widget(Button(text='Заглушка'))
         # Фильтр группы
         group_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                    text=self.material_group,
-                                    dict_class=MaterialSubgroup,
-                                    owner_class=MaterialGroup,
-                                    field='material_group',
-                                    modal_title='Фильр группы',
-                                    ui=self,
-        ))
+                                                   text=self.material_group,
+                                                   dict_class=MaterialSubgroup,
+                                                   owner_class=MaterialGroup,
+                                                   field='material_group',
+                                                   modal_title='Фильр группы',
+                                                   ui=self,
+                                                   ))
 
         # Подгруппа
-        subgroup_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
+        subgroup_layout = BoxLayout(orientation='horizontal', size_hint=[
+                                    1, .2], padding=[0, 5])
         subgroup_layout.add_widget(OpenScreenButton(text='Подгруппа',
                                                     screen_name=MaterialSubgroupUI.screen_name,
                                                     screen_manager=self.sm))
@@ -171,13 +184,13 @@ class MaterialUI:
         # subgroup_layout.add_widget(Button(text='Заглушка'))
         # Фильтр подгруппы
         subgroup_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                    text=self.subgroup,
-                                    dict_class=Material,
-                                    owner_class=MaterialSubgroup,
-                                    field='subgroup',
-                                    modal_title='Фильр группы',
-                                    ui=self,
-        ))
+                                                      text=self.subgroup,
+                                                      dict_class=self.model_class,
+                                                      owner_class=MaterialSubgroup,
+                                                      field='subgroup',
+                                                      modal_title='Фильр группы',
+                                                      ui=self,
+                                                      ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)
