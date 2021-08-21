@@ -24,6 +24,8 @@ from src.gui.dictionary.material.MaterialSubgroupUI import MaterialSubgroupUI
 from src.gui.modal.ModalPopup import ModalPopup
 
 from src.gui.modal.ChainedFilterPopup import ChainedFilterPopup
+from src.gui.modal.ChainedFilterPopup import SelectRowButton
+
 from src.db.models.material.MaterialCategory import MaterialCategory
 from src.db.models.material.MaterialGroup import MaterialGroup
 from src.db.models.material.MaterialSubgroup import MaterialSubgroup
@@ -41,11 +43,10 @@ class MaterialUI:
     material_group = 'Не выбранно'
     subgroup = 'Не выбранно'
     selection_chain = {
-                        'material_category': {'id': None, 'selection': None, 'model': MaterialCategory, 'enabled': True}, 
-                        'material_group': {'id': None, 'selection': None, 'model': MaterialGroup, 'enabled': False}, 
-                        'subgroup': {'id': None, 'selection': None, 'model': MaterialSubgroup, 'enabled': False}
+                        'material_category': {'id': None, 'selection': None, 'last_choice': None, 'model': MaterialCategory, 'enabled': True}, 
+                        'material_group': {'id': None, 'selection': None, 'last_choice': None, 'model': MaterialGroup, 'enabled': False}, 
+                        'subgroup': {'id': None, 'selection': None, 'last_choice': None, 'model': MaterialSubgroup, 'enabled': False}
                     }
-    # selection_chain = []
     last_selection = 'subgroup'
 
     def __init__(self, screen_manager):
