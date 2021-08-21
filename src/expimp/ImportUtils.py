@@ -96,16 +96,25 @@ def import_material(filename, list_name):
                 add_row(data_material)
                 material = Material.select().where(Material.name == row[col].value)
             if col == 5 and row[col].value != None:
-                unit = Unit.select().where(Unit.name == row[7].value)
-                prop = Prop.select().where(Prop.name == row[5].value)
-                value_material = [
-                    {'amount': str(row[6].value),
+                unit_name = row[7].value
+                if unit_name is None:
+                    unit_name = 'Пусто'
+                prop_name = row[5].value
+                if unit_name is None:
+                    prop_name = 'Пусто'
+                amount_name = row[6].value
+                if amount_name is None:
+                    amount_name = 0.0
+                unit = Unit.select().where(Unit.name == unit_name)
+                prop = Prop.select().where(Prop.name == prop_name)
+                value_material_property = [
+                    {'amount': str(amount_name),
                      'material': material,
                      'prop': prop,
                      'unit': unit}
                 ]
                 data_material_property = dict([
                     ('model_class', MaterialProperty),
-                    ('value', value_material),
+                    ('value', value_material_property),
                 ])
                 add_row(data_material_property)
