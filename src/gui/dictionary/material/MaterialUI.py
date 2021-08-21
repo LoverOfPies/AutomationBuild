@@ -147,7 +147,6 @@ class MaterialUI:
                                                     screen_manager=self.sm))
         category_layout.add_widget(Label(text='Категория: '))
         # Фильтр категории
-        # category_layout.add_widget(Button(text='Заглушка'))
         category_layout.add_widget(ChainedFilterPopup(height=dp(30),
                                                       text=self.material_category,
                                                       dict_class=MaterialGroup,
@@ -164,7 +163,6 @@ class MaterialUI:
                                                  screen_name=MaterialGroupUI.screen_name,
                                                  screen_manager=self.sm))
         group_layout.add_widget(Label(text='Группа: '))
-        # group_layout.add_widget(Button(text='Заглушка'))
         # Фильтр группы
         group_layout.add_widget(ChainedFilterPopup(height=dp(30),
                                                    text=self.material_group,
@@ -182,7 +180,6 @@ class MaterialUI:
                                                     screen_name=MaterialSubgroupUI.screen_name,
                                                     screen_manager=self.sm))
         subgroup_layout.add_widget(Label(text='Подгруппа: '))
-        # subgroup_layout.add_widget(Button(text='Заглушка'))
         # Фильтр подгруппы
         subgroup_layout.add_widget(ChainedFilterPopup(height=dp(30),
                                                       text=self.subgroup,

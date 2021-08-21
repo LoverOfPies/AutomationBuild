@@ -35,13 +35,9 @@ class SelectRowButton(Button):
     field = StringProperty()
 
     def set_filter_selection(self) -> list:
-        print('ttt', 'o:', self.owner_class, 'd:', self.dict_class, self.field)
-
         self.ui_class.selection_chain[self.field]['id'] = getattr(self.dict_class, self.field)
         self.ui_class.selection_chain[self.field]['last_choice'] = self.name_row
         items = self.owner_class.select().where(self.owner_class.name == self.name_row)
-
-        print(items)
 
         filtered_list = []
         final_list = []
@@ -81,8 +77,6 @@ class SelectRowButton(Button):
                             final_list.append(s)
                 else:
                     final_list.extend(filtered_list)
-
-        print('fil', filtered_list)  
 
         recursion_select(filtered_list, self.field)
 
@@ -170,15 +164,12 @@ class ModalPopup(Popup):
                 owner_class = modal.ui_class.selection_chain[prev_field]['model']
                 dict_class = modal.owner_class
 
-                print('o:', owner_class, 'd:', dict_class, prev_field)
                 sel = SelectRowButton(text='Выбрать', height=dp(30), popup=modal, name_row=last_name, button_obj=None, ui_class=modal.ui_class,
                                                     dict_class=dict_class, owner_class=owner_class, field=prev_field)
                 final_list = sel.set_filter_selection()
-                print('res',str(final_list))  
                 modal.ui_class.items_list = final_list
             else:
                 modal.ui_class.filter_flag = False
-                print(modal.ui_class.filter_flag)
 
         for key, value in sorted(list(modal.ui_class.selection_chain.items()), key=lambda x:x[0].lower(), reverse=True):
             setattr(modal.ui_class, key, 'Не выбранно')
