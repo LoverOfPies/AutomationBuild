@@ -23,12 +23,29 @@ from src.gui.dictionary.work.WorkStageUI import WorkStageUI
 from src.gui.dictionary.work.WorkTechnologyUI import WorkTechnologyUI
 from src.gui.modal.ModalPopup import ModalPopup
 
+from src.gui.modal.ChainedFilterPopup import ChainedFilterPopup
+from src.db.models.work.WorkStage import WorkStage
+from src.db.models.work.WorkTechnology import WorkTechnology
+from src.db.models.work.WorkGroup import WorkGroup
+
 
 class WorkUI:
     screen_name = 'work_screen'
     parent_screen = 'dictionary_screen'
     model_class = Work
     screen = Screen(name=screen_name)
+
+    items_list = None
+    filter_flag = False
+    work_stage = 'Не выбранно'
+    work_technology = 'Не выбранно'
+    group_work = 'Не выбранно'
+    selection_chain = {
+        'work_stage': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkStage, 'enabled': True},
+        'work_technology': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkTechnology, 'enabled': False},
+        'group_work': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkGroup, 'enabled': False},
+    }
+    last_selection = 'group_work'
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -62,8 +79,11 @@ class WorkUI:
         data_layout.add_widget(Label(text='Группа', height=dp(30)))
         data_layout.add_widget(Label(text='Материалы для работы', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
-        works = self.model_class.select()
-        for work in works:
+
+        if not self.filter_flag:
+            self.items_list = self.model_class.select()
+
+        for work in self.items_list:
             data_layout.add_widget(SelectableButton(text=str(work.name), size_hint_y=None, height=dp(30),
                                                     popup_title="Изменить наименование",
                                                     class_popup=ChangeTextAttributePopup,
@@ -137,7 +157,15 @@ class WorkUI:
                                                       screen_name=WorkStageUI.screen_name,
                                                       screen_manager=self.sm))
         work_stage_layout.add_widget(Label(text='Стадия: '))
-        work_stage_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр стадий
+        work_stage_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                                      text=self.work_stage,
+                                                      dict_class=WorkTechnology,
+                                                      owner_class=WorkStage,
+                                                      field='work_stage',
+                                                      modal_title='Фильр стадий',
+                                                      ui=self,
+                                                      ))
 
         # Технологии работ
         work_technology_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -145,7 +173,15 @@ class WorkUI:
                                                            screen_name=WorkTechnologyUI.screen_name,
                                                            screen_manager=self.sm))
         work_technology_layout.add_widget(Label(text='Технология: '))
-        work_technology_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр технологий
+        work_technology_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                                      text=self.work_technology,
+                                                      dict_class=WorkGroup,
+                                                      owner_class=WorkTechnology,
+                                                      field='work_technology',
+                                                      modal_title='Фильр технологий',
+                                                      ui=self,
+                                                      ))
 
         # Группы работ
         work_group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -153,7 +189,15 @@ class WorkUI:
                                                       screen_name=WorkGroupUI.screen_name,
                                                       screen_manager=self.sm))
         work_group_layout.add_widget(Label(text='Группа: '))
-        work_group_layout.add_widget(Button(text='Заглушка'))
+        # Фильтр групп
+        work_group_layout.add_widget(ChainedFilterPopup(height=dp(30),
+                                                      text=self.group_work,
+                                                      dict_class=self.model_class,
+                                                      owner_class=WorkGroup,
+                                                      field='group_work',
+                                                      modal_title='Фильр групп',
+                                                      ui=self,
+                                                      ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)

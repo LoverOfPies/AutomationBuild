@@ -11,8 +11,8 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 
-def get_next_field_of_dict(dict, field, direction=1):
-    temp = list(dict)
+def get_next_field_of_dict(dictionary, field, direction=1):
+    temp = list(dictionary)
     try:
         next_field = temp[temp.index(field) + direction]
     except (ValueError, IndexError):
@@ -152,11 +152,10 @@ class ModalPopup(Popup):
 
         buttoncallback = partial(self.reset_filter, reset_items=True)
         cancel.bind(on_press=buttoncallback)
-        # cancel.bind(on_press=self.reset_filter)
 
         self.add_widget(main_layout)
     
-    def reset_filter(modal, self, reset_items=False):
+    def reset_filter(modal, _self, reset_items=False):
         if reset_items:
             prev_field = get_next_field_of_dict(modal.ui_class.selection_chain, modal.field, -1)
             if prev_field is not None:
@@ -171,7 +170,7 @@ class ModalPopup(Popup):
             else:
                 modal.ui_class.filter_flag = False
 
-        for key, value in sorted(list(modal.ui_class.selection_chain.items()), key=lambda x:x[0].lower(), reverse=True):
+        for key, value in reversed(modal.ui_class.selection_chain.items()):
             setattr(modal.ui_class, key, 'Не выбранно')
             if key == modal.field:
                 break
