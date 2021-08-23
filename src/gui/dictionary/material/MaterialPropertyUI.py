@@ -10,6 +10,7 @@ from src.db.models.material.Material import Material
 from src.db.models.base.Prop import Prop
 from src.db.models.material.MaterialProperty import MaterialProperty
 from src.db.models.base.Unit import Unit
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
 from src.gui.add_dictionary.material.AddRowMaterialPropertyPopup import AddRowMaterialPropertyPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -23,6 +24,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class MaterialPropertyUI:
     screen_name = 'material_property_screen'
     parent_screen = 'material_screen'
+    table_name = 'Свойства материалов'
     model_class = MaterialProperty
     screen = Screen(name=screen_name)
     filter_name = ''
@@ -91,9 +93,7 @@ class MaterialPropertyUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Свойства ' + self.filter_name, font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
@@ -101,6 +101,7 @@ class MaterialPropertyUI:
                                               ui=self,
                                               popup=AddRowMaterialPropertyPopup,
                                               popup_title='Добавление записи "Свойство материала"'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

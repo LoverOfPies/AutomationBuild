@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -18,6 +19,7 @@ from src.db.models.provider.City import City
 class CityUI:
     screen_name = 'city_screen'
     parent_screen = 'provider_screen'
+    table_name = 'Города'
     model_class = City
     screen = Screen(name=screen_name)
 
@@ -67,9 +69,7 @@ class CityUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Города', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
@@ -77,6 +77,7 @@ class CityUI:
                                               ui=self,
                                               popup=AddRowSimplePopup,
                                               popup_title='Добавление записи "Город"'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

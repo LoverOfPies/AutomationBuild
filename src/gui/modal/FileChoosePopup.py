@@ -6,7 +6,8 @@ from src.db.models.base.BaseUnit import BaseUnit
 from src.db.models.base.Prop import Prop
 from src.db.models.base.Unit import Unit
 from src.db.models.material.Material import Material
-from src.expimp.ImportUtils import import_single_row, import_material
+from src.db.models.work.Work import Work
+from src.expimp.ImportUtils import import_single_row, import_material, import_work
 
 Builder.load_string("""
 <FileChoosePopup>:
@@ -41,7 +42,9 @@ class FileChoosePopup(Popup):
         if self.ui.model_class == Unit:
             import_single_row(filename[0], self.ui, 'ЕдиницыИзмерения')
         if self.ui.model_class == Material:
-            import_material(filename[0], 'Материалы')
+            import_material(filename[0], self.ui, 'Материалы')
+        if self.ui.model_class == Work:
+            import_work(filename[0], self.ui, 'Работы')
         self.dismiss()
 
     def __init__(self, **kwargs):

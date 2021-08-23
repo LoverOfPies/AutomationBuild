@@ -8,6 +8,7 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.MaterialGroup import MaterialGroup
 from src.db.models.material.MaterialSubgroup import MaterialSubgroup
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -21,6 +22,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class MaterialSubgroupUI:
     screen_name = 'subgroup_screen'
     parent_screen = 'material_screen'
+    table_name = 'Подгруппы материалов'
     model_class = MaterialSubgroup
     screen = Screen(name=screen_name)
 
@@ -76,9 +78,7 @@ class MaterialSubgroupUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Подгруппы материалов', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
@@ -86,6 +86,7 @@ class MaterialSubgroupUI:
                                               ui=self,
                                               popup=AddRowMaterialSubgroupPopup,
                                               popup_title='Добавление записи "Подгруппа материалов"'))
+        init_control_buttons(button_layout, self)
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))

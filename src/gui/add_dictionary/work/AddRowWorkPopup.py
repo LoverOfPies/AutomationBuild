@@ -22,14 +22,14 @@ class AddRowWorkPopup(Popup):
     def add_value(self, obj):
         self.dismiss()
         base_unit = BaseUnit.select().where(BaseUnit.name == self.base_unit_input.text)
-        group_work = WorkGroup.select().where(WorkGroup.name == self.group_work_input.text)
+        work_group = WorkGroup.select().where(WorkGroup.name == self.work_group.text)
         model_obj = [
             {'name': str(self.name_input.text),
              'work_coefficient': str(self.work_coefficient_input.text),
              'client_price': str(self.client_price_input.text),
              'work_price': str(self.work_price_input.text),
              'base_unit': base_unit,
-             'group_work': group_work}
+             'work_group': work_group}
         ]
         data = dict([
             ('model_class', self.ui_class.model_class),
@@ -52,7 +52,7 @@ class AddRowWorkPopup(Popup):
         self.base_unit_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                      modal_popup=ModalPopup, modal_title='Базовые единицы',
                                                      owner_class=BaseUnit)
-        self.group_work_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
+        self.work_group_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                       modal_popup=ModalPopup, modal_title='Группы работ',
                                                       owner_class=WorkGroup)
 
@@ -78,7 +78,7 @@ class AddRowWorkPopup(Popup):
         data_layout.add_widget(Label(text='Базовая единица', size_hint_y=None, height=dp(30)))
         data_layout.add_widget(self.base_unit_input)
         data_layout.add_widget(Label(text='Группа работ', size_hint_y=None, height=dp(30)))
-        data_layout.add_widget(self.group_work_input)
+        data_layout.add_widget(self.work_group_input)
         data_scroll.add_widget(data_layout)
         main_layout.add_widget(data_scroll)
 
