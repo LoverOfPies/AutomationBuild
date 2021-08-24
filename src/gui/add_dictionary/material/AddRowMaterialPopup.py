@@ -33,16 +33,6 @@ class AddRowMaterialPopup(Popup):
             ('value', model_obj),
         ])
         add_row(data)
-
-        for key, value in reversed(self.ui_class.selection_chain.items()):
-            setattr(self.ui_class, key, 'Не выбранно')
-            if key == next(iter(self.ui_class.selection_chain.keys())):
-                break
-            value['enabled'] = False
-            value['id'] = None
-            value['selection'] = None
-        self.ui_class.filter_flag = False
-
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):

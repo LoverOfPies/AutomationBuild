@@ -22,4 +22,4 @@ def export_table(model):
                 val = getattr(val, 'uuid')
             ws.cell(row=row, column=col + 1, value=str(val))
         row += 1
-    wb.save("expimp/" + table_name + ".xlsx")
+    wb.save(f'expimp/{table_name}.xlsx')
