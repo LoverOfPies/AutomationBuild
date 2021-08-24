@@ -8,13 +8,10 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.base.BaseUnit import BaseUnit
 from src.db.models.work.Work import Work
-from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout, init_back_button
 from src.gui.add_dictionary.work.AddRowWorkPopup import AddRowWorkPopup
-from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.ExportButton import ExportButton
-from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
@@ -37,6 +34,7 @@ class WorkUI:
     table_name = 'Работы'
     model_class = Work
     screen = Screen(name=screen_name)
+    add_popup = AddRowWorkPopup
 
     items_list = None
     filter_flag = False
@@ -141,16 +139,10 @@ class WorkUI:
         title_layout = init_title_layout(self)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowWorkPopup,
-                                              popup_title='Добавление записи "Работа"'))
-        init_control_buttons(button_layout, self)
+        button_layout = init_control_buttons(self)
 
-        # Кнопка "Назад"
-        back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        # Кнопка назад
+        back_layout = init_back_button(self)
 
         # Стадии работ
         work_stage_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -160,13 +152,13 @@ class WorkUI:
         work_stage_layout.add_widget(Label(text='Стадия: '))
         # Фильтр стадий
         work_stage_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                                      text=self.work_stage,
-                                                      dict_class=WorkTechnology,
-                                                      owner_class=WorkStage,
-                                                      field='work_stage',
-                                                      modal_title='Фильр стадий',
-                                                      ui=self,
-                                                      ))
+                                                        text=self.work_stage,
+                                                        dict_class=WorkTechnology,
+                                                        owner_class=WorkStage,
+                                                        field='work_stage',
+                                                        modal_title='Фильтр стадий',
+                                                        ui=self,
+                                                        ))
 
         # Технологии работ
         work_technology_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -176,13 +168,13 @@ class WorkUI:
         work_technology_layout.add_widget(Label(text='Технология: '))
         # Фильтр технологий
         work_technology_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                                      text=self.work_technology,
-                                                      dict_class=WorkGroup,
-                                                      owner_class=WorkTechnology,
-                                                      field='work_technology',
-                                                      modal_title='Фильр технологий',
-                                                      ui=self,
-                                                      ))
+                                                             text=self.work_technology,
+                                                             dict_class=WorkGroup,
+                                                             owner_class=WorkTechnology,
+                                                             field='work_technology',
+                                                             modal_title='Фильтр технологий',
+                                                             ui=self,
+                                                             ))
 
         # Группы работ
         work_group_layout = BoxLayout(orientation='horizontal', size_hint=[1, .2], padding=[0, 5])
@@ -192,13 +184,13 @@ class WorkUI:
         work_group_layout.add_widget(Label(text='Группа: '))
         # Фильтр групп
         work_group_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                                      text=self.work_group,
-                                                      dict_class=self.model_class,
-                                                      owner_class=WorkGroup,
-                                                      field='work_group',
-                                                      modal_title='Фильр групп',
-                                                      ui=self,
-                                                      ))
+                                                        text=self.work_group,
+                                                        dict_class=self.model_class,
+                                                        owner_class=WorkGroup,
+                                                        field='work_group',
+                                                        modal_title='Фильтр групп',
+                                                        ui=self,
+                                                        ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)

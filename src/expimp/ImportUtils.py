@@ -1,4 +1,5 @@
 from openpyxl import load_workbook
+from peewee import ForeignKeyField
 
 from src.db.DbUtils import add_multirow, add_row
 from src.db.models.base.BaseUnit import BaseUnit
@@ -37,9 +38,34 @@ def import_single_row(filename, ui, list_name):
     ui.update_screen()
 
 
-def import_table(model):
-
-    pass
+def import_table(ui):
+    model = ui.model_class
+    model_meta = model._meta
+    model_name = model_meta.name
+    filename = f'expimp\{model_name}.xlsx'
+    wb = load_workbook(filename)
+    sheet = wb.get_sheet_by_name(model_name)
+    fields = [cell.value for row in sheet.rows for cell in row if cell.row == 1]
+    values = []
+    for row in sheet.rows:
+        value = dict.fromkeys(fields, None)
+        for num_cell in range(len(fields)):
+            cell = row[num_cell]
+            if cell.row == 1:
+                continue
+            cell_value = cell.value
+            if isinstance(getattr(model, fields[num_cell]), ForeignKeyField):
+                attr_model = getattr(model, fields[num_cell]).rel_model
+                cell_value = attr_model.select().where(attr_model.uuid == cell.value)
+            value[fields[num_cell]] = cell_value
+        values.append([value])
+    values = values[1:]
+    data = dict([
+        ('model_class', model),
+        ('value', values),
+    ])
+    add_multirow(data)
+    ui.update_screen()
 
 
 def import_material(filename, ui, list_name):

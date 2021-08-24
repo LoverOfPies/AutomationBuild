@@ -8,11 +8,9 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.MaterialCategory import MaterialCategory
 from src.db.models.material.MaterialGroup import MaterialGroup
-from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
-from src.gui.custom_uix.AddRowButton import AddRowButton
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout, init_back_button
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.add_dictionary.material.AddRowMaterialGroupPopup import AddRowMaterialGroupPopup
@@ -25,6 +23,7 @@ class MaterialGroupUI:
     table_name = 'Группы материалов'
     model_class = MaterialGroup
     screen = Screen(name=screen_name)
+    add_popup = AddRowMaterialGroupPopup
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -81,15 +80,10 @@ class MaterialGroupUI:
         title_layout = init_title_layout(self)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowMaterialGroupPopup,
-                                              popup_title='Добавление записи "Группа материала"'))
-        init_control_buttons(button_layout, self)
+        button_layout = init_control_buttons(self)
 
-        back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        # Кнопка назад
+        back_layout = init_back_button(self)
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)

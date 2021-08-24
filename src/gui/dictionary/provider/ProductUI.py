@@ -9,12 +9,10 @@ from kivy.uix.scrollview import ScrollView
 from src.db.models.material.Material import Material
 from src.db.models.provider.Product import Product
 from src.db.models.provider.Provider import Provider
-from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons, init_back_button
 from src.gui.add_dictionary.provider.AddRowProductPopup import AddRowProductPopup
-from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
 from src.gui.custom_uix.SelectableModalButton import SelectableModalButton
 from src.gui.modal.ModalPopup import ModalPopup
@@ -26,14 +24,15 @@ class ProductUI:
     table_name = 'Товара'
     model_class = Product
     screen = Screen(name=screen_name)
+    add_popup = AddRowProductPopup
     filter_name = ''
 
     def __init__(self, screen_manager, filter_name):
         self.sm = screen_manager
         self.filter_name = filter_name
         self.update_screen()
-        if screen_manager.has_screen('product_screen'):
-            screen_manager.remove_widget(screen_manager.get_screen('product_screen'))
+        if screen_manager.has_screen(self.screen_name):
+            screen_manager.remove_widget(screen_manager.get_screen(self.screen_name))
         self.sm.add_widget(self.screen)
 
     def update_screen(self):
@@ -101,13 +100,10 @@ class ProductUI:
         title_layout = init_title_layout(self)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProductPopup,
-                                              popup_title='Добавление записи "Товар"'))
-        init_control_buttons(button_layout, self)
+        button_layout = init_control_buttons(self)
 
-        back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        # Кнопка назад
+        back_layout = init_back_button(self)
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)

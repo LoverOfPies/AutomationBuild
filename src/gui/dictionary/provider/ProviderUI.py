@@ -2,15 +2,13 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.provider.City import City
 from src.db.models.provider.Provider import Provider
-from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
-from src.gui.custom_uix.AddRowButton import AddRowButton
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons, init_back_button
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
@@ -30,6 +28,7 @@ class ProviderUI:
     table_name = 'Поставщики'
     model_class = Provider
     screen = Screen(name=screen_name)
+    add_popup = AddRowProviderPopup
     providers = None
     filter_flag = False
     filter_btn_text = 'Не выбранно'
@@ -104,18 +103,10 @@ class ProviderUI:
         title_layout = init_title_layout(self)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[
-                                  1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowProviderPopup,
-                                              popup_title='Добавление записи "Поставщик"'))
-        init_control_buttons(button_layout, self)
+        button_layout = init_control_buttons(self)
 
-        # Кнопка "Назад"
-        back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(
-            text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        # Кнопка назад
+        back_layout = init_back_button(self)
 
         # Справочник городов
         city_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
@@ -125,12 +116,12 @@ class ProviderUI:
 
         # Фильтр города
         city_layout.add_widget(FilterPopup(height=dp(30),
-                                    text=self.filter_btn_text,
-                                    dict_class=self.model_class,
-                                    owner_class=City,
-                                    modal_title='Фильр города',
-                                    ui=self,
-                                    ))
+                                           text=self.filter_btn_text,
+                                           dict_class=self.model_class,
+                                           owner_class=City,
+                                           modal_title='Фильр города',
+                                           ui=self,
+                                           ))
 
         bl.add_widget(title_layout)
         bl.add_widget(back_layout)

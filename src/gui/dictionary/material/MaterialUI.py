@@ -2,19 +2,16 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.Material import Material
 from src.db.models.base.Unit import Unit
-from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout, init_back_button
 from src.gui.add_dictionary.material.AddRowMaterialPopup import AddRowMaterialPopup
-from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
-from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
@@ -37,6 +34,7 @@ class MaterialUI:
     table_name = 'Материалы'
     model_class = Material
     screen = Screen(name=screen_name)
+    add_popup = AddRowMaterialPopup
 
     items_list = None
     filter_flag = False
@@ -124,18 +122,10 @@ class MaterialUI:
         title_layout = init_title_layout(self)
 
         # Кнопки управления
-        button_layout = BoxLayout(orientation='horizontal', size_hint=[
-                                  1, .4], padding=[0, 30])
-        button_layout.add_widget(AddRowButton(text='Добавить',
-                                              ui=self,
-                                              popup=AddRowMaterialPopup,
-                                              popup_title='Добавление записи "Материал"'))
-        init_control_buttons(button_layout, self)
+        button_layout = init_control_buttons(self)
 
-        # Кнопка "Назад"
-        back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
-        back_layout.add_widget(OpenScreenButton(
-            text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))
+        # Кнопка назад
+        back_layout = init_back_button(self)
 
         # Категории
         category_layout = BoxLayout(orientation='horizontal', size_hint=[
