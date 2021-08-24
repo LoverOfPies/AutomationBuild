@@ -29,6 +29,10 @@ class AddRowProviderPopup(Popup):
             ('value', model_obj),
         ])
         add_row(data)
+
+        self.ui_class.filter_flag = False
+        self.ui_class.filter_btn_text = 'Не выбранно'
+
         self.ui_class.update_screen()
 
     def __init__(self, ui_class, **kwargs):

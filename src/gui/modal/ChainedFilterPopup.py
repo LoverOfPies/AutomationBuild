@@ -171,10 +171,9 @@ class ModalPopup(Popup):
             setattr(modal.ui_class, key, 'Не выбранно')
             if key == modal.field:
                 break
-            else:
-                value['enabled'] = False
-                value['id'] = None
-                value['selection'] = None
+            value['enabled'] = False
+            value['id'] = None
+            value['selection'] = None
 
         modal.ui_class.update_screen()
         modal.dismiss()
