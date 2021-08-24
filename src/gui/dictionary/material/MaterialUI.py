@@ -9,6 +9,7 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.material.Material import Material
 from src.db.models.base.Unit import Unit
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
 from src.gui.add_dictionary.material.AddRowMaterialPopup import AddRowMaterialPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -33,6 +34,7 @@ from src.db.models.material.MaterialSubgroup import MaterialSubgroup
 class MaterialUI:
     screen_name = 'material_screen'
     parent_screen = 'dictionary_screen'
+    table_name = 'Материалы'
     model_class = Material
     screen = Screen(name=screen_name)
 
@@ -119,10 +121,7 @@ class MaterialUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[
-                                 1, .3], padding=[0, 30])
-        title_label = Label(text='Материалы', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[
@@ -131,9 +130,7 @@ class MaterialUI:
                                               ui=self,
                                               popup=AddRowMaterialPopup,
                                               popup_title='Добавление записи "Материал"'))
-        button_layout.add_widget(ImportButton(text='Импорт данных',
-                                              ui=self,
-                                              popup_title='Импорт данных таблицы "Материалы"'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

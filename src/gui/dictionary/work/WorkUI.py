@@ -2,17 +2,19 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
 from src.db.models.base.BaseUnit import BaseUnit
 from src.db.models.work.Work import Work
+from src.gui.BaseUIUtils import init_control_buttons, init_title_layout
 from src.gui.add_dictionary.work.AddRowWorkPopup import AddRowWorkPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
+from src.gui.custom_uix.ExportButton import ExportButton
+from src.gui.custom_uix.ImportButton import ImportButton
 from src.gui.custom_uix.OpenFilterScreenButton import OpenFilterScreenButton
 from src.gui.custom_uix.OpenScreenButton import OpenScreenButton
 from src.gui.custom_uix.SelectableButton import SelectableButton
@@ -32,6 +34,7 @@ from src.db.models.work.WorkGroup import WorkGroup
 class WorkUI:
     screen_name = 'work_screen'
     parent_screen = 'dictionary_screen'
+    table_name = 'Работы'
     model_class = Work
     screen = Screen(name=screen_name)
 
@@ -39,13 +42,13 @@ class WorkUI:
     filter_flag = False
     work_stage = 'Не выбранно'
     work_technology = 'Не выбранно'
-    group_work = 'Не выбранно'
+    work_group = 'Не выбранно'
     selection_chain = {
         'work_stage': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkStage, 'enabled': True},
         'work_technology': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkTechnology, 'enabled': False},
-        'group_work': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkGroup, 'enabled': False},
+        'work_group': {'id': None, 'selection': None, 'last_choice': None, 'model': WorkGroup, 'enabled': False},
     }
-    last_selection = 'group_work'
+    last_selection = 'work_group'
 
     def __init__(self, screen_manager):
         self.sm = screen_manager
@@ -118,11 +121,11 @@ class WorkUI:
                                                          id_value=str(work.id),
                                                          field='base_unit', modal_title='Базовые единицы'
                                                          ))
-            data_layout.add_widget(SelectableModalButton(text=str(work.group_work.name), height=dp(30),
+            data_layout.add_widget(SelectableModalButton(text=str(work.work_group.name), height=dp(30),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=BaseUnit,
                                                          id_value=str(work.id),
-                                                         field='group_work', modal_title='Группы работ'
+                                                         field='work_group', modal_title='Группы работ'
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Материалы для работы',
@@ -135,9 +138,7 @@ class WorkUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Работы', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
@@ -145,7 +146,7 @@ class WorkUI:
                                               ui=self,
                                               popup=AddRowWorkPopup,
                                               popup_title='Добавление записи "Работа"'))
-        button_layout.add_widget(Button(text='Импорт данных'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
@@ -191,10 +192,10 @@ class WorkUI:
         work_group_layout.add_widget(Label(text='Группа: '))
         # Фильтр групп
         work_group_layout.add_widget(ChainedFilterPopup(height=dp(30),
-                                                      text=self.group_work,
+                                                      text=self.work_group,
                                                       dict_class=self.model_class,
                                                       owner_class=WorkGroup,
-                                                      field='group_work',
+                                                      field='work_group',
                                                       modal_title='Фильр групп',
                                                       ui=self,
                                                       ))

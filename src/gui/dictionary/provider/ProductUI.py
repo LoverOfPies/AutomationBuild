@@ -9,6 +9,7 @@ from kivy.uix.scrollview import ScrollView
 from src.db.models.material.Material import Material
 from src.db.models.provider.Product import Product
 from src.db.models.provider.Provider import Provider
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
 from src.gui.add_dictionary.provider.AddRowProductPopup import AddRowProductPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -22,6 +23,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class ProductUI:
     screen_name = 'product_screen'
     parent_screen = 'provider_screen'
+    table_name = 'Товара'
     model_class = Product
     screen = Screen(name=screen_name)
     filter_name = ''
@@ -96,14 +98,13 @@ class ProductUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Товары ' + self.filter_name, font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .4], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowProductPopup,
                                               popup_title='Добавление записи "Товар"'))
+        init_control_buttons(button_layout, self)
 
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
         back_layout.add_widget(OpenScreenButton(text='Назад', screen_name=self.parent_screen, screen_manager=self.sm))

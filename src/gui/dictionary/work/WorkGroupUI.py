@@ -8,6 +8,7 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.work.WorkGroup import WorkGroup
 from src.db.models.work.WorkTechnology import WorkTechnology
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
 from src.gui.add_dictionary.work.AddRowWorkGroupPopup import AddRowWorkGroupPopup
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -21,6 +22,7 @@ from src.gui.modal.ModalPopup import ModalPopup
 class WorkGroupUI:
     screen_name = 'work_group_screen'
     parent_screen = 'work_screen'
+    table_name = 'Группы работ'
     model_class = WorkGroup
     screen = Screen(name=screen_name)
 
@@ -78,14 +80,13 @@ class WorkGroupUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
-        title_label = Label(text='Группы работ', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[1, .3], padding=[0, 30])
         button_layout.add_widget(AddRowButton(text='Добавить', ui=self, popup=AddRowWorkGroupPopup,
                                               popup_title='Добавление записи "Группа работ"'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка назад
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])

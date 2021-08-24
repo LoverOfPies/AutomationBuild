@@ -1,10 +1,7 @@
-import re
-from typing import final
 from functools import partial
 from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 from kivy.lang import Builder
 from kivy.metrics import dp
-from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label

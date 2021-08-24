@@ -9,6 +9,7 @@ from kivy.uix.scrollview import ScrollView
 
 from src.db.models.provider.City import City
 from src.db.models.provider.Provider import Provider
+from src.gui.BaseUIUtils import init_title_layout, init_control_buttons
 from src.gui.custom_uix.AddRowButton import AddRowButton
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
 from src.gui.custom_uix.DeleteRowButton import DeleteRowButton
@@ -26,6 +27,7 @@ from src.gui.modal.FilterPopup import FilterPopup
 class ProviderUI:
     screen_name = 'provider_screen'
     parent_screen = 'dictionary_screen'
+    table_name = 'Поставщики'
     model_class = Provider
     screen = Screen(name=screen_name)
     providers = None
@@ -99,10 +101,7 @@ class ProviderUI:
         data_scroll.add_widget(data_layout)
 
         # Заголовок формы
-        title_layout = BoxLayout(orientation='horizontal', size_hint=[
-                                 1, .3], padding=[0, 30])
-        title_label = Label(text='Поставщики', font_size='20sp')
-        title_layout.add_widget(title_label)
+        title_layout = init_title_layout(self)
 
         # Кнопки управления
         button_layout = BoxLayout(orientation='horizontal', size_hint=[
@@ -111,7 +110,7 @@ class ProviderUI:
                                               ui=self,
                                               popup=AddRowProviderPopup,
                                               popup_title='Добавление записи "Поставщик"'))
-        button_layout.add_widget(Button(text='Импорт данных'))
+        init_control_buttons(button_layout, self)
 
         # Кнопка "Назад"
         back_layout = BoxLayout(size_hint=[1, .2], padding=[0, 5])
