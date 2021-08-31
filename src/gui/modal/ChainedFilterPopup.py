@@ -1,5 +1,5 @@
 from functools import partial
-from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty # pylint: disable=no-name-in-module
 from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.boxlayout import BoxLayout
@@ -148,11 +148,11 @@ class ModalPopup(Popup):
         main_layout.add_widget(cancel)
 
         buttoncallback = partial(self.reset_filter, reset_items=True)
-        cancel.bind(on_press=buttoncallback)
+        cancel.bind(on_press=buttoncallback) # pylint: disable=no-member
 
         self.add_widget(main_layout)
     
-    def reset_filter(modal, _self, reset_items=False):
+    def reset_filter(modal, _self, reset_items=False): # pylint: disable=no-self-argument
         if reset_items:
             prev_field = get_next_field_of_dict(modal.ui_class.selection_chain, modal.field, -1)
             if prev_field is not None:

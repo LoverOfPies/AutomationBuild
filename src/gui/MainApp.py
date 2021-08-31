@@ -18,6 +18,10 @@ from src.gui.dictionary.work.WorkGroupUI import WorkGroupUI
 from src.gui.dictionary.work.WorkStageUI import WorkStageUI
 from src.gui.dictionary.work.WorkTechnologyUI import WorkTechnologyUI
 from src.gui.dictionary.work.WorkUI import WorkUI
+from src.gui.calculation.CalculationUI import CalculationUI
+
+from src.gui.dictionary.equipment.EquipmentUI import EquipmentUI
+from src.gui.dictionary.equipment.EquipmentTechnologyUI import EquipmentTechnologyUI
 
 
 def main_screen(sm):
@@ -26,13 +30,22 @@ def main_screen(sm):
     al = AnchorLayout()
     bl = BoxLayout(orientation='vertical', size_hint=[.7, .2])
     al.add_widget(bl)
+    # title_label = Label(text='Система расчёта строительства', font_size='20sp', color=(0, 0, 0, 1))
     title_label = Label(text='Система расчёта строительства', font_size='20sp')
     bl.add_widget(title_label)
+    bl.add_widget(OpenScreenButton(text='Расчет', screen_name='calculation_screen', screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Справочники', screen_name='dictionary_screen', screen_manager=sm))
     screen = Screen(name=screen_name)
     screen.add_widget(al)
     sm.add_widget(screen)
 
+
+def calculation_screen(sm):
+    # Экран расчета
+    screen = CalculationUI(sm)
+
+    # sm.add_widget(screen)
+    
 
 def dictionary_screen(sm):
     # Экран выбора справочников
@@ -51,6 +64,7 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Поставщики', screen_name=ProviderUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text="Комлектации", screen_name=EquipmentUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
@@ -74,11 +88,16 @@ def dictionary_screen(sm):
     WorkTechnologyUI(screen_manager=sm)
     WorkGroupUI(screen_manager=sm)
 
+    EquipmentUI(screen_manager=sm)
+    # EquipmentTechnologyUI(screen_manager=sm)
+
+
 
 class MainApp(App):
     def build(self):
         self.title = 'AutomationBuild'
         sm = ScreenManager()
         main_screen(sm)
+        calculation_screen(sm)
         dictionary_screen(sm)
         return sm
