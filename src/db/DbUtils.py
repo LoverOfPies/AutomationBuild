@@ -82,7 +82,7 @@ def delete_row(data):
                 if foreign_key.rel_model == model_class:
                     link_quantity = len(foreign_table.select().where(foreign_key == obj))
                     if link_quantity > 0:
-                        ErrorPopup(message="На объект есть ссылки " + str(link_quantity)).open()
+                        ErrorPopup(message=f'На объект есть ссылки {link_quantity}').open()
                         return False
         obj.delete_instance()
     except IntegrityError:
