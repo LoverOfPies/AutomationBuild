@@ -7,8 +7,8 @@ from src.db.models.work.WorkTechnology import WorkTechnology
 
 # ManyToMany Технологии для данной комплектации
 class TechnologyEquipment(BaseModel):
-    technology = ForeignKeyField(WorkTechnology)
-    equipment = ForeignKeyField(Equipment)
+    technology = ForeignKeyField(WorkTechnology, backref='technology_equipment')
+    equipment = ForeignKeyField(Equipment, backref='technology_equipment')
 
     class Meta:
         db_table = "ab_technology_equipment"

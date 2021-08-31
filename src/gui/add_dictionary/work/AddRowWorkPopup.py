@@ -22,7 +22,7 @@ class AddRowWorkPopup(Popup):
     def add_value(self, obj):
         self.dismiss()
         base_unit = BaseUnit.select().where(BaseUnit.name == self.base_unit_input.text)
-        work_group = WorkGroup.select().where(WorkGroup.name == self.work_group.text)
+        work_group = WorkGroup.select().where(WorkGroup.name == self.work_group_input.text)
         model_obj = [
             {'name': str(self.name_input.text),
              'work_coefficient': str(self.work_coefficient_input.text),
