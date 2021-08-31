@@ -21,6 +21,7 @@ from src.gui.dictionary.work.WorkUI import WorkUI
 from src.gui.calculation.CalculationUI import CalculationUI
 
 from src.gui.dictionary.equipment.EquipmentUI import EquipmentUI
+from src.gui.dictionary.project.ProjectUI import ProjectUI
 
 
 def main_screen(sm):
@@ -64,6 +65,7 @@ def dictionary_screen(sm):
     bl.add_widget(OpenScreenButton(text='Материалы', screen_name=MaterialUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text='Работы', screen_name=WorkUI.screen_name, screen_manager=sm))
     bl.add_widget(OpenScreenButton(text="Комлектации", screen_name=EquipmentUI.screen_name, screen_manager=sm))
+    bl.add_widget(OpenScreenButton(text="Проекты", screen_name=ProjectUI.screen_name, screen_manager=sm))
 
     screen = Screen(name=screen_name)
     screen.add_widget(al)
@@ -88,8 +90,7 @@ def dictionary_screen(sm):
     WorkGroupUI(screen_manager=sm)
 
     EquipmentUI(screen_manager=sm)
-    # EquipmentTechnologyUI(screen_manager=sm)
-
+    ProjectUI(screen_manager=sm)
 
 
 class MainApp(App):
