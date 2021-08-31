@@ -50,13 +50,15 @@ class AddRowMaterialPropertyPopup(Popup):
                                                 change_flag=False,
                                                 modal_popup=ModalPopup,
                                                 modal_title='Свойства',
-                                                owner_class=Prop)
+                                                owner_class=Prop,
+                                                ui=self)
         self.unit_input = SelectableModalButton(size_hint_y=None, height=dp(30),
                                                 text='',
                                                 change_flag=False,
                                                 modal_popup=ModalPopup,
                                                 modal_title='Единицы измерения',
-                                                owner_class=Unit)
+                                                owner_class=Unit,
+                                                ui=self)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

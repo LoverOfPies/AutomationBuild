@@ -117,13 +117,13 @@ class WorkUI:
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=BaseUnit,
                                                          id_value=str(work.id),
-                                                         field='base_unit', modal_title='Базовые единицы'
+                                                         field='base_unit', modal_title='Базовые единицы', ui=self
                                                          ))
             data_layout.add_widget(SelectableModalButton(text=str(work.work_group.name), height=dp(30),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=BaseUnit,
                                                          id_value=str(work.id),
-                                                         field='work_group', modal_title='Группы работ'
+                                                         field='work_group', modal_title='Группы работ', ui=self
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Материалы для работы',

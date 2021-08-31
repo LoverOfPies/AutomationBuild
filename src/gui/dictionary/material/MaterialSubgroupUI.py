@@ -67,7 +67,7 @@ class MaterialSubgroupUI:
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=MaterialGroup,
                                                          id_value=str(subgroup.id),
-                                                         field='material_group', modal_title='Группы'
+                                                         field='material_group', modal_title='Группы', ui=self
                                                          ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',

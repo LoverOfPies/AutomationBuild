@@ -71,7 +71,7 @@ class WorkTechnologyUI:
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=WorkStage,
                                                          id_value=str(work_technology.id),
-                                                         field='work_stage', modal_title='Стадии'
+                                                         field='work_stage', modal_title='Стадии', ui=self
                                                          ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',

@@ -105,7 +105,7 @@ class MaterialUI:
                                                          dict_class=self.model_class, owner_class=Unit,
                                                          id_value=str(
                                                              material.id),
-                                                         field='unit', modal_title='Единицы измерения'
+                                                         field='unit', modal_title='Единицы измерения', ui=self
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Свойства',

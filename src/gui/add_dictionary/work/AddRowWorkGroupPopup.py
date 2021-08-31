@@ -44,7 +44,7 @@ class AddRowWorkGroupPopup(Popup):
         self.work_technology_input = SelectableModalButton(size_hint_y=None, height=dp(30),
                                                            text='',  change_flag=False,
                                                            modal_popup=ModalPopup, modal_title='Стадия',
-                                                           owner_class=WorkTechnology)
+                                                           owner_class=WorkTechnology, ui=self)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

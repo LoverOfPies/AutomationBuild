@@ -41,7 +41,7 @@ class AddRowMaterialGroupPopup(Popup):
         self.name_input = TextInput()
         self.category_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                     modal_popup=ModalPopup, modal_title='Категории',
-                                                    owner_class=MaterialCategory)
+                                                    owner_class=MaterialCategory, ui=self)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

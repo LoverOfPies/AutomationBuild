@@ -7,6 +7,7 @@ class SelectableModalButton(Button):
     modal_popup = ObjectProperty()
     change_flag = BooleanProperty()
     modal_title = StringProperty()
+    ui = ObjectProperty()
 
     dict_class = ObjectProperty()
     owner_class = ObjectProperty()
@@ -19,5 +20,5 @@ class SelectableModalButton(Button):
             self.id_value = ''
             self.field = ''
         popup = self.modal_popup(self, self.change_flag, self.dict_class, self.owner_class, self.id_value, self.field,
-                                 self.modal_title)
+                                 self.modal_title, self.ui)
         popup.open()

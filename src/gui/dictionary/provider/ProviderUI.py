@@ -83,7 +83,7 @@ class ProviderUI:
                                                          dict_class=self.model_class, owner_class=City,
                                                          id_value=str(
                                                              provider.id),
-                                                         field='city', modal_title='Города'
+                                                         field='city', modal_title='Города', ui=self
                                                          ))
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Товары ' + provider.name,

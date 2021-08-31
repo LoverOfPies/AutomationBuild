@@ -7,9 +7,9 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
 
-from src.db.models.Equipment import Equipment
+from src.db.models.project.Equipment import Equipment
 
-from src.gui.dictionary.equipment.EquipmentTechnologyUI import EquipmentTechnologyUI
+from src.gui.dictionary.equipment.EquipmentWorkGroupUI import EquipmentWorkGroupUI
 from src.gui.BaseUIUtils import init_control_buttons, init_title_layout, init_back_button
 from src.gui.add_dictionary.AddRowSimplePopup import AddRowSimplePopup
 from src.gui.custom_uix.ChangeTextAttributePopup import ChangeTextAttributePopup
@@ -53,7 +53,7 @@ class EquipmentUI:
         row_force_default: True''')
 
         data_layout.add_widget(Label(text='Наименование', height=dp(30)))
-        data_layout.add_widget(Label(text='Работы', height=dp(30)))
+        data_layout.add_widget(Label(text='Группы', height=dp(30)))
         data_layout.add_widget(Label(text='', height=dp(30)))
 
         self.items_list = self.model_class.select()
@@ -69,7 +69,7 @@ class EquipmentUI:
             data_layout.add_widget(OpenFilterScreenButton(height=dp(30),
                                                           text='Группы',
                                                           screen_manager=self.sm,
-                                                          filter_ui=EquipmentTechnologyUI,
+                                                          filter_ui=EquipmentWorkGroupUI,
                                                           filter_name=str(equipment.name)
                                                           ))
             data_layout.add_widget(DeleteRowButton(text='Удалить', height=dp(30),

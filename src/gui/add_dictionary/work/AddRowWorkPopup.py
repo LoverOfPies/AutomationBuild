@@ -51,10 +51,10 @@ class AddRowWorkPopup(Popup):
         self.work_price_input = DoubleInput(multiline=False)
         self.base_unit_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                      modal_popup=ModalPopup, modal_title='Базовые единицы',
-                                                     owner_class=BaseUnit)
+                                                     owner_class=BaseUnit, ui=self)
         self.work_group_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                       modal_popup=ModalPopup, modal_title='Группы работ',
-                                                      owner_class=WorkGroup)
+                                                      owner_class=WorkGroup, ui=self)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)

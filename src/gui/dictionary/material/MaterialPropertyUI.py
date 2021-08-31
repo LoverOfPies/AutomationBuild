@@ -75,14 +75,14 @@ class MaterialPropertyUI:
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Prop,
                                                          id_value=str(materialProperty.id),
-                                                         field='prop', modal_title='Свойства'
+                                                         field='prop', modal_title='Свойства', ui=self
                                                          ))
             data_layout.add_widget(SelectableModalButton(height=dp(30),
                                                          text=str(materialProperty.unit.name),
                                                          modal_popup=ModalPopup, change_flag=True,
                                                          dict_class=self.model_class, owner_class=Unit,
                                                          id_value=str(materialProperty.id),
-                                                         field='unit', modal_title='Единицы измерения'
+                                                         field='unit', modal_title='Единицы измерения', ui=self
                                                          ))
             data_layout.add_widget(DeleteRowButton(height=dp(30),
                                                    text='Удалить',

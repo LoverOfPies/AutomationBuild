@@ -21,7 +21,6 @@ from src.gui.dictionary.work.WorkUI import WorkUI
 from src.gui.calculation.CalculationUI import CalculationUI
 
 from src.gui.dictionary.equipment.EquipmentUI import EquipmentUI
-from src.gui.dictionary.equipment.EquipmentTechnologyUI import EquipmentTechnologyUI
 
 
 def main_screen(sm):

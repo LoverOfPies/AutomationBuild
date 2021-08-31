@@ -46,10 +46,10 @@ class AddRowMaterialPopup(Popup):
         self.articul_input = TextInput()
         self.unit_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                 modal_popup=ModalPopup, modal_title='Единицы измерения',
-                                                owner_class=Unit)
+                                                owner_class=Unit, ui=self)
         self.subgroup_input = SelectableModalButton(text='', size_hint_y=None, height=dp(30), change_flag=False,
                                                     modal_popup=ModalPopup, modal_title='Подгруппы',
-                                                    owner_class=MaterialSubgroup)
+                                                    owner_class=MaterialSubgroup, ui=self)
 
         main_layout = BoxLayout(orientation='vertical')
         data_scroll = ScrollView(do_scroll_y=True, do_scroll_x=False)
